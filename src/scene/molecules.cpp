@@ -4,7 +4,7 @@
 
 #include "scene/molecules.hpp"
 
-Scene::Molecule::Molecule(const Vector2& position, const Vector2& speed, const double mass, const double radius) :
+Scene::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
                 position_(position), speed_(speed), mass_(mass), radius_(radius), impulse_(speed * mass)
 {
 }
@@ -22,7 +22,7 @@ Scene::Molecule::~Molecule()
 void Scene::SigmaMolecule::draw(Graphics::Window& window)
 {
     RectangleSystem system = window.get_system();
-    Vector2 top_left = system.coords_to_pixel({position_.get_x() - radius_,
+    Vector top_left = system.coords_to_pixel({position_.get_x() - radius_,
                                                position_.get_y() - radius_});
 
     sf::CircleShape circle;
@@ -35,7 +35,7 @@ void Scene::SigmaMolecule::draw(Graphics::Window& window)
 void Scene::BetaMolecule::draw(Graphics::Window& window)
 {
     RectangleSystem system = window.get_system();
-    Vector2 top_left = system.coords_to_pixel({position_.get_x() - radius_,
+    Vector top_left = system.coords_to_pixel({position_.get_x() - radius_,
                                                position_.get_y() - radius_});
 
     sf::RectangleShape rec;
@@ -52,7 +52,7 @@ void Scene::Molecule::move()
     position_ = position_ + (speed_ * TICK_COEF);
 }
 
-void elastic_reflection(const Vector2& normal)
+void elastic_reflection(const Vector& normal)
 {
     
 }

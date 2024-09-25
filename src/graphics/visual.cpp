@@ -2,7 +2,7 @@
 
 static const float DOT_RADIUS = 1.0;
 
-static const Vector2 NULL_VECTOR = {0, 0};
+static const Vector NULL_VECTOR = {0, 0};
 
 // ==============================================================
 

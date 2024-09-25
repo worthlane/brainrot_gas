@@ -7,7 +7,7 @@
 #include "graphics/visual.hpp"
 #include "graphics/pixels_array.hpp"
 
-Vector2 get_mouse_position(const Graphics::Window& window);
+Vector get_mouse_position(const Graphics::Window& window);
 
 enum class ButtonCondition
 {

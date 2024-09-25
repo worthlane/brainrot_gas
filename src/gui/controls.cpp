@@ -138,7 +138,7 @@ void AButton::handle_release_(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-Vector2 get_mouse_position(const Graphics::Window& window)
+Vector get_mouse_position(const Graphics::Window& window)
 {
     sf::Vector2i vector = sf::Mouse::getPosition(window.window_);
 
@@ -148,7 +148,7 @@ Vector2 get_mouse_position(const Graphics::Window& window)
     static const size_t Y_SHIFT = 0;
     static const size_t X_SHIFT = 0;
 
-    Vector2 pos = {x - X_SHIFT, y - Y_SHIFT};
+    Vector pos = {x - X_SHIFT, y - Y_SHIFT};
 
     return pos;
 }

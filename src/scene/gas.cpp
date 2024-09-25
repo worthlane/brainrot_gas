@@ -4,7 +4,7 @@ static const sf::Color BACKGROUND_COLOR = sf::Color(50, 50, 50);
 
 static void draw_background(Graphics::Window& window, Scene::Gas& gas);
 
-Scene::Gas::Gas(const Vector2& top_left, const size_t width, const size_t height) :
+Scene::Gas::Gas(const Vector& top_left, const size_t width, const size_t height) :
                 top_left_(top_left), width_(width), height_(height)
 {
 
@@ -40,10 +40,10 @@ void Scene::Gas::draw(Graphics::Window& window)
 
 static void draw_background(Graphics::Window& window, Scene::Gas& gas)
 {
-    Vector2 top_left_coord = gas.get_top_left();
+    Vector top_left_coord = gas.get_top_left();
 
     RectangleSystem system = window.get_system();
-    Vector2 top_left_pixel = system.coords_to_pixel(top_left_coord);
+    Vector top_left_pixel = system.coords_to_pixel(top_left_coord);
 
     sf::RectangleShape rec;
     rec.setSize({gas.get_width() / system.get_scale(), gas.get_height() / system.get_scale()});

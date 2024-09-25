@@ -14,7 +14,7 @@ static const double SCALE  = 0.05;
 
 static const double AMBIENT = 0.2;
 
-static const Vector2 NULL_VECTOR = {0, 0};
+static const Vector NULL_VECTOR = {0, 0};
 
 const char* DEFAULT_BUTTON = "assets/textures/button_default.png";
 const char* PRESSED_BUTTON = "assets/textures/button_pressed.png";

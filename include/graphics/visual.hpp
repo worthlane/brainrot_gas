@@ -26,7 +26,7 @@ class Window
 
         bool poll_event(Event& event);
 
-        Vector2 get_mouse_position();
+        Vector get_mouse_position();
 
         void draw(const Sprite& sprite); // TODO convert
 

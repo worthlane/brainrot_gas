@@ -11,26 +11,26 @@ namespace Scene
 class Molecule
 {
     public:
-        Molecule(const Vector2& position, const Vector2& speed, const double mass, const double radius);
+        Molecule(const Vector& position, const Vector& speed, const double mass, const double radius);
         ~Molecule();
 
-        Vector2 get_position() const { return position_; }
-        Vector2 get_impulse()  const { return impulse_; }
-        Vector2 get_speed()    const { return speed_; }
+        Vector get_position() const { return position_; }
+        Vector get_impulse()  const { return impulse_; }
+        Vector get_speed()    const { return speed_; }
         double  get_mass()     const { return mass_; }
         double  get_radius()   const { return radius_; }
 
         void move();
 
-        void elastic_reflection(const Vector2& normal);
+        void elastic_reflection(const Vector& normal);
 
         virtual void draw(Graphics::Window& window) = 0;
 
     protected:
-        Vector2 position_;
+        Vector position_;
 
-        Vector2 impulse_;
-        Vector2 speed_;
+        Vector impulse_;
+        Vector speed_;
 
         double  mass_;
         double  radius_;
@@ -39,7 +39,7 @@ class Molecule
 class SigmaMolecule : public Molecule
 {
     public:
-        SigmaMolecule(const Vector2& position, const Vector2& speed, const double mass, const double radius) :
+        SigmaMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
             Molecule(position, speed, mass, radius) {}
         ~SigmaMolecule() {}
 
@@ -49,7 +49,7 @@ class SigmaMolecule : public Molecule
 class BetaMolecule : public Molecule
 {
     public:
-        BetaMolecule(const Vector2& position, const Vector2& speed, const double mass, const double radius) :
+        BetaMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
             Molecule(position, speed, mass, radius) {}
         ~BetaMolecule() {}
 
@@ -60,6 +60,6 @@ class BetaMolecule : public Molecule
 }
 
 
-double calculate_sphere_z(const Vector2& xy, const double radius);
+double calculate_sphere_z(const Vector& xy, const double radius);
 
 #endif // _MOLECULES_HPP_

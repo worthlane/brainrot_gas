@@ -20,6 +20,10 @@ class Molecule
         double  get_mass()     const { return mass_; }
         double  get_radius()   const { return radius_; }
 
+        void move();
+
+        void elastic_reflection(const Vector2& normal);
+
         virtual void draw(Graphics::Window& window) = 0;
 
     protected:

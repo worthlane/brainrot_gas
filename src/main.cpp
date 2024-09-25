@@ -5,7 +5,7 @@
 #include "maths/vectors.hpp"
 #include "graphics/visual.hpp"
 #include "gui/manager.hpp"
-#include "scene/molecules.hpp"
+#include "scene/gas.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;
@@ -26,8 +26,13 @@ int main()
     RectangleSystem  system = {LENGTH, WIDTH, SCALE, {0, 0}};
     Graphics::Window window = {system, "Gas"};
 
-    Scene::SigmaMolecule mol = {{0, 0}, {0, 0}, 1, 1};
-    Scene::BetaMolecule mol2 = {{4, 3}, {0, 0}, 1, 2};
+    Scene::Gas gas = {{-30, 15}, 40, 20};
+
+    Scene::SigmaMolecule mol = {{0, 0}, {1, 2}, 1, 0.5};
+    Scene::BetaMolecule mol2 = {{4, 3}, {2, -1}, 1, 1};
+
+    gas.add_molecule(&mol);
+    gas.add_molecule(&mol2);
 
     while (window.is_open())
     {
@@ -35,8 +40,7 @@ int main()
 
         window.clear();
 
-        mol.draw(window);
-        mol2.draw(window);
+        gas.draw(window);
 
         window.display();
     }

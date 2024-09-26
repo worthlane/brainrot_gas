@@ -1,5 +1,4 @@
-#ifndef _PIXELS_ARRAY_HPP_
-#define _PIXELS_ARRAY_HPP_
+#pragma once
 
 #include <cmath>
 
@@ -45,5 +44,3 @@ class Pixels
         size_t    size_;
         u_int8_t* pixels_;
 };
-
-#endif // _PIXELS_ARRAY_HPP_

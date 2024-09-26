@@ -1,5 +1,4 @@
-#ifndef _CONVERTION_HPP_
-#define _CONVERTION_HPP_
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -48,5 +47,3 @@ class Event
 };*/
 
 }
-
-#endif // CONVERTION_HPP

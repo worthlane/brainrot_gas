@@ -1,25 +1,28 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "gui/controls.hpp"
+#include "gui/buttons.hpp"
 
 static const double MASK_DELTA = 0.001;
+
+const char* RED_SUBSCRIBE_BUTTON  = "assets/textures/button_default.png";
+const char* GRAY_SUBSCRIBE_BUTTON = "assets/textures/button_pressed.png";
 
 //static const std::chrono::milliseconds ANIMATION_TIME = 3000;
 
 // ----------------------------------------------------------------------
 
 AButton::AButton(const size_t length, const size_t width, const Dot& upper_left,
-                const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released) :
+                const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released, Action* action) :
                 length_(length), width_(width), upper_left_(upper_left),
-                default_(def), hovered_(hovered), pressed_(pressed), released_(released)
+                default_(def), hovered_(hovered), pressed_(pressed), released_(released), action_(action)
 {
 }
 
 // ----------------------------------------------------------------------
 
-AButton::AButton(const size_t length, const size_t width, const Dot& upper_left) :
-                length_(length), width_(width), upper_left_(upper_left)
+AButton::AButton(const size_t length, const size_t width, const Dot& upper_left, Action* action) :
+                length_(length), width_(width), upper_left_(upper_left), action_(action)
 {
 }
 
@@ -138,6 +141,38 @@ void AButton::handle_release_(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
+bool AButton::on_default(Graphics::Window& window, Graphics::Event& event)
+{
+    DRAW_BUTTON(window, default_);
+    return false;
+}
+
+// ----------------------------------------------------------------------
+
+bool AButton::on_click(Graphics::Window& window, Graphics::Event& event)
+{
+    DRAW_BUTTON(window, pressed_);
+    return false;
+}
+
+// ---------------------------------------------------------------------
+
+bool AButton::on_hover(Graphics::Window& window, Graphics::Event& event)
+{
+    DRAW_BUTTON(window, hovered_);
+    return false;
+}
+
+// ----------------------------------------------------------------------
+
+bool AButton::on_release(Graphics::Window& window, Graphics::Event& event)
+{
+    DRAW_BUTTON(window, released_);
+    return false;
+}
+
+// ----------------------------------------------------------------------
+
 Vector get_mouse_position(const Graphics::Window& window)
 {
     sf::Vector2i vector = sf::Mouse::getPosition(window.window_);
@@ -159,73 +194,3 @@ void default_action(void* params)
 {
     printf("action\n");
 }
-
-// ----------------------------------------------------------------------
-
-AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Dot& upper_left) :
-                AButton(length, width, upper_left), interact_time_(0)
-{
-    mask_brightness_ = 0;
-}
-
-// ----------------------------------------------------------------------
-
-AnimatedButton::~AnimatedButton()
-{}
-
-// ----------------------------------------------------------------------
-
-bool AnimatedButton::on_default(Graphics::Window& window, Graphics::Event& event)
-{
-    /*std::chrono::steady_clock::time_point moment = std::chrono::steady_clock::now();
-    std::chrono::milliseconds delta = moment - last_update_;
-    last_update_ = moment;*/
-
-
-    if (mask_brightness_ > 0)
-    {
-        mask_brightness_ -= MASK_DELTA;
-    }
-
-    DRAW_BUTTON_WITH_MASK(window, default_, hovered_, mask_brightness_);
-
-    return false;
-}
-
-// ----------------------------------------------------------------------
-
-bool AnimatedButton::on_hover(Graphics::Window& window, Graphics::Event& event)
-{
-    if (mask_brightness_ < 1)
-    {
-        mask_brightness_ += MASK_DELTA;
-    }
-
-    DRAW_BUTTON_WITH_MASK(window, default_, hovered_, mask_brightness_);
-
-    return false;
-}
-
-// ----------------------------------------------------------------------
-
-bool AnimatedButton::on_click(Graphics::Window& window, Graphics::Event& event)
-{
-    DRAW_BUTTON(window, pressed_);
-
-    mask_brightness_ = 1;
-
-    return false;
-}
-
-// ----------------------------------------------------------------------
-
-bool AnimatedButton::on_release(Graphics::Window& window, Graphics::Event& event)
-{
-    DRAW_BUTTON(window, released_);
-
-    (*this)(event);
-
-    return true;
-}
-
-// ----------------------------------------------------------------------

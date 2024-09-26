@@ -1,5 +1,4 @@
-#ifndef _VECTORS_HPP_
-#define _VECTORS_HPP_
+#pragma once
 
 #include <cmath>
 
@@ -35,4 +34,13 @@ static const Vector NAN_VECTOR = {NAN, NAN};
 Vector reflect_vector(const Vector& falling, const Vector& normal);
 double cosinus(const Vector& first, const Vector& second);
 
-#endif // _VECTORS_HPP_
+bool directed_towards(const Vector& first, const Vector& second);
+
+enum CompareResult
+{
+    LESS    = -1,
+    EQUAL   =  0,
+    GREATER =  1
+};
+
+CompareResult compare_double(const double first, const double second);

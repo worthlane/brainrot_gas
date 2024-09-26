@@ -47,14 +47,17 @@ void Scene::BetaMolecule::draw(Graphics::Window& window)
 
 void Scene::Molecule::move()
 {
-    static const double TICK_COEF = 1e-4;
+    static const double TICK_COEF = 2e-4;
 
     position_ = position_ + (speed_ * TICK_COEF);
 }
 
-void elastic_reflection(const Vector& normal)
+void Scene::Molecule::elastic_reflection(const Vector& normal)
 {
-    
+    Vector new_impulse = reflect_vector(impulse_, normal);
+
+    impulse_ = new_impulse;
+    speed_   = new_impulse / mass_;
 }
 
 

@@ -1,5 +1,4 @@
-#ifndef _GR_LIB_HPP_
-#define _GR_LIB_HPP_
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -38,5 +37,3 @@ class Window
 };
 
 }
-
-#endif // GR_LIB_HPP

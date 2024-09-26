@@ -1,5 +1,4 @@
-#ifndef _COORD_SYSTEM_HPP_
-#define _COORD_SYSTEM_HPP_
+#pragma once
 
 #include "maths/vectors.hpp"
 
@@ -24,5 +23,3 @@ class RectangleSystem
         Dot    center_;
         size_t width_, length_;
 };
-
-#endif // _COORD_SYSTEM_HPP

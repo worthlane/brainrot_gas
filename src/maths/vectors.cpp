@@ -1,5 +1,6 @@
 #include <cmath>
 #include <stdio.h>
+#include <iostream>
 #include <assert.h>
 
 #include "maths/vectors.hpp"
@@ -138,5 +139,30 @@ Vector reflect_vector(const Vector& falling, const Vector& normal)
     Vector reflected = normalized * (2 * length * cos) - falling;
 
     return reflected;
+}
+
+// ----------------------------------------------------------------------
+
+bool directed_towards(const Vector& first, const Vector& second)
+{
+    double cos = cosinus(first, second);
+
+    return (cos > 0) ? true : false;
+}
+
+// ----------------------------------------------------------------------
+
+CompareResult compare_double(const double first, const double second)
+{
+    static const double EPSILON = 1e-6;
+
+    double diff = first - second;
+
+    if (fabs(diff) < EPSILON)
+        return CompareResult::EQUAL;
+    else if (diff < -EPSILON)
+        return CompareResult::LESS;
+    else
+        return CompareResult::GREATER;
 }
 

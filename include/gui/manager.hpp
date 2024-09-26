@@ -1,8 +1,7 @@
-#ifndef _MANAGER_HPP_
-#define _MANAGER_HPP_
+#pragma once
 
 #include "graphics/visual.hpp"
-#include "gui/controls.hpp"
+#include "gui/buttons.hpp"
 
 class Manager
 {
@@ -17,5 +16,3 @@ class Manager
     private:
         std::vector<AButton*> buttons_;
 };
-
-#endif // _MANAGER_HPP_

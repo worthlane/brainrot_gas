@@ -1,5 +1,4 @@
-#ifndef _MOLECULES_HPP_
-#define _MOLECULES_HPP_
+#pragma once
 
 #include "maths/coord_system.hpp"
 #include "graphics/pixels_array.hpp"
@@ -61,5 +60,3 @@ class BetaMolecule : public Molecule
 
 
 double calculate_sphere_z(const Vector& xy, const double radius);
-
-#endif // _MOLECULES_HPP_

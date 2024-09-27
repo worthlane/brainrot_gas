@@ -37,6 +37,16 @@ void Scene::GasContainer::draw(Graphics::Desktop& desktop, const Window& window)
 
 bool Scene::GasContainer::update(Graphics::Desktop& window, Graphics::Event& event)
 {
+    /*molecules_[0]->get_impulse().print();
+    molecules_[1]->get_impulse().print();
+    molecules_[2]->get_impulse().print();
+
+    std::cout << "------\n";
+
+    std::cout << (molecules_[0]->get_impulse() + molecules_[1]->get_impulse() + molecules_[2]->get_impulse()).get_length() << std::endl;
+
+    std::cout << "========\n";*/
+
     return physics_.update(window, event);
 }
 

@@ -5,13 +5,15 @@
 #include "gui/manager.hpp"
 #include "gui/window.hpp"
 
+static const double RADIUS_TO_MASS_COEF = 0.5;
+
 namespace Scene
 {
 
 class Molecule : public WindowDrawable, Updatable
 {
     public:
-        Molecule(const Vector& position, const Vector& speed, const double mass, const double radius);
+        Molecule(const Vector& position, const Vector& speed, const double mass);
         ~Molecule();
 
         Vector get_position() const { return position_; }
@@ -35,12 +37,18 @@ class Molecule : public WindowDrawable, Updatable
         double radius_;
 };
 
+enum class MoleculeType
+{
+    SIGMA   = 0,
+    SKIBIDI = 1,
+};
+
 class SigmaMolecule : public Molecule
 {
     public:
-        SigmaMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
-            Molecule(position, speed, mass, radius) { position_ = {position.get_x() - radius, position.get_y() + radius}; }
-        ~SigmaMolecule() {}
+        SigmaMolecule(const Vector& position, const Vector& speed, const double mass) :
+            Molecule(position, speed, mass) { }
+        ~SigmaMolecule() { }
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
 };
@@ -48,8 +56,8 @@ class SigmaMolecule : public Molecule
 class SkibidiMolecule : public Molecule
 {
     public:
-        SkibidiMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
-            Molecule(position, speed, mass, radius) { position_ = {position.get_x() - radius, position.get_y() + radius}; }
+        SkibidiMolecule(const Vector& position, const Vector& speed, const double mass) :
+            Molecule(position, speed, mass) { }
         ~SkibidiMolecule() {}
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;

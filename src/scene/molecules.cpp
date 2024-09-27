@@ -5,8 +5,8 @@
 
 #include "scene/molecules.hpp"
 
-Scene::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
-                        position_(position), speed_(speed), mass_(mass), radius_(radius), impulse_(speed * mass)
+Scene::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass) :
+                        position_(position), speed_(speed), mass_(mass), radius_(RADIUS_TO_MASS_COEF * mass), impulse_(speed * mass)
 {
 }
 
@@ -34,8 +34,8 @@ void Scene::SigmaMolecule::draw(Graphics::Desktop& desktop, const Window& window
     Vector top_left = window_offset + system.coords_to_pixel({position_.get_x(),
                                                               position_.get_y()});
     double radius = radius_ / system.get_scale();
-    /*Vector center_offset = {radius, radius};
-    top_left = top_left - center_offset;*/
+    Vector center_offset = {radius, radius};
+    top_left = top_left - center_offset;
 
     desktop.draw_circle(top_left, radius, sf::Color::Blue);
 }
@@ -48,24 +48,17 @@ void Scene::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& wind
 
     Vector top_left = window_offset + system.coords_to_pixel({position_.get_x(),
                                                               position_.get_y()});
-    /*Vector center_offset = {side / 2, side / 2};
-    top_left = top_left - center_offset;*/
+    Vector center_offset = {side / 2, side / 2};
+    top_left = top_left - center_offset;
 
     desktop.draw_rectangle(top_left, side, side, sf::Color::Red);
 }
 
 bool Scene::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
 {
-    static const double TICK_COEF = 5e-4;
-
-    //position_.print();
+    static const double TICK_COEF = 1e-4;
 
     position_ = position_ + (speed_ * TICK_COEF);
-
-    //position_.print();
-    //std::cout << "---\n";
-    //speed_.print();
-    //std::cout << "---\n";
 }
 
 

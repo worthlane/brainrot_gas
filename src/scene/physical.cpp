@@ -51,7 +51,7 @@ static void collide(Scene::Molecule* first, Scene::Molecule* second)
     Vector impulse1 = first->get_impulse();
     Vector impulse2 = second->get_impulse();
 
-    Vector normal = pos2 - pos1;
+    Vector normal = (pos2 - pos1).normalize();
     normal.normalize();
 
     double proj1 = impulse1 * normal;
@@ -95,22 +95,22 @@ static void wall_collision(Scene::Molecule* molecule, const Vector& top_left, co
     Vector pos    = molecule->get_position();
     Vector speed  = molecule->get_speed();
 
-    if (pos.get_y() > upper_limit)
+    if (pos.get_y() + radius > upper_limit)
     {
         elastic_reflection(molecule, UPPER_NORMAL);
     }
 
-    if (pos.get_y() - 2 * radius < down_limit)
+    if (pos.get_y() - radius < down_limit)
     {
         elastic_reflection(molecule, DOWN_NORMAL);
     }
 
-    if (pos.get_x() + 2 * radius > right_limit)
+    if (pos.get_x() + radius > right_limit)
     {
         elastic_reflection(molecule, RIGHT_NORMAL);
     }
 
-    if (pos.get_x() < left_limit)
+    if (pos.get_x() - radius < left_limit)
     {
         elastic_reflection(molecule, LEFT_NORMAL);
     }

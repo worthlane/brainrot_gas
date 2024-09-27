@@ -23,6 +23,8 @@ class Desktop
         bool poll_event(Event& event);
 
         void draw(const Sprite& sprite);
+        void draw_circle(const Vector& pos, const double radius, sf::Color color);
+        void draw_rectangle(const Vector& pos, const double length, const double width, sf::Color color);
 
         sf::RenderWindow window_;
 

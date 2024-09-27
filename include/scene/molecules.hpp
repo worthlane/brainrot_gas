@@ -21,6 +21,7 @@ class Molecule : public WindowDrawable, Updatable
         double get_radius()   const { return radius_; }
 
         void   set_impulse(const Vector& impulse);
+        void   set_position(const Vector& position) { position_ = position; }
 
         bool update(Graphics::Desktop& window, Graphics::Event& event) override;
 
@@ -38,7 +39,7 @@ class SigmaMolecule : public Molecule
 {
     public:
         SigmaMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
-            Molecule(position, speed, mass, radius) {}
+            Molecule(position, speed, mass, radius) { position_ = {position.get_x() - radius, position.get_y() + radius}; }
         ~SigmaMolecule() {}
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
@@ -48,7 +49,7 @@ class SkibidiMolecule : public Molecule
 {
     public:
         SkibidiMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
-            Molecule(position, speed, mass, radius) {}
+            Molecule(position, speed, mass, radius) { position_ = {position.get_x() - radius, position.get_y() + radius}; }
         ~SkibidiMolecule() {}
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;

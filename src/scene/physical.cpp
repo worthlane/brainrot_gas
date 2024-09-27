@@ -42,16 +42,35 @@ static void collide(Scene::Molecule* first, Scene::Molecule* second)
 
     double len = first->get_radius() + second->get_radius();
 
-    if ((pos1 - pos2).get_length() > len)
-        return;
-    else
-    {
-        Vector impulse1 = first->get_impulse();
-        Vector impulse2 = second->get_impulse();
+    Vector delta_pos = pos1 - pos2;
+    double dist = delta_pos.get_length();
 
-        first->set_impulse(impulse2);
-        second->set_impulse(impulse1);
-    }
+    if (dist > len)
+        return;
+
+    Vector impulse1 = first->get_impulse();
+    Vector impulse2 = second->get_impulse();
+
+    Vector normal = pos2 - pos1;
+    normal.normalize();
+
+    double proj1 = impulse1 * normal;
+    double proj2 = impulse2 * normal;
+
+    Vector tangent1 = impulse1 - normal * proj1;
+    Vector tangent2 = impulse2 - normal * proj2;
+
+    Vector new_impulse1 = tangent1 + normal * proj2;
+    Vector new_impulse2 = tangent2 + normal * proj1;
+
+    first->set_impulse(new_impulse1);
+    second->set_impulse(new_impulse2);
+
+    double penetration_depth = len - dist;
+    Vector correction_vector = normal * (penetration_depth / 2);
+
+    first->set_position(pos1 - correction_vector);
+    second->set_position(pos2 + correction_vector);
 }
 
 //-------------------------------------------------------------------
@@ -76,29 +95,23 @@ static void wall_collision(Scene::Molecule* molecule, const Vector& top_left, co
     Vector pos    = molecule->get_position();
     Vector speed  = molecule->get_speed();
 
-    //std::cout << directed_towards({2, -1}, {-1, 0}) << std::endl;
-
-    if (pos.get_y() + radius > upper_limit)
+    if (pos.get_y() > upper_limit)
     {
-        std::cout << "collide\n";
         elastic_reflection(molecule, UPPER_NORMAL);
     }
 
-    if (pos.get_y() - radius < down_limit)
+    if (pos.get_y() - 2 * radius < down_limit)
     {
-        std::cout << "collide\n";
         elastic_reflection(molecule, DOWN_NORMAL);
     }
 
-    if (pos.get_x() + radius > right_limit)
+    if (pos.get_x() + 2 * radius > right_limit)
     {
-        std::cout << "collide\n";
         elastic_reflection(molecule, RIGHT_NORMAL);
     }
 
-    if (pos.get_x() - radius < left_limit)
+    if (pos.get_x() < left_limit)
     {
-        std::cout << "collide\n";
         elastic_reflection(molecule, LEFT_NORMAL);
     }
 }

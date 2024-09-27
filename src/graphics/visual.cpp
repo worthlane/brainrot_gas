@@ -74,6 +74,28 @@ bool Graphics::Desktop::poll_event(Event& event)
     return window_.pollEvent(event.get_event());
 }
 
+// ------------------------------------------
+
+void Graphics::Desktop::draw_circle(const Vector& pos, const double radius, sf::Color color)
+{
+    sf::CircleShape circle;
+    circle.setRadius(radius);
+    circle.setPosition(pos.get_x(), pos.get_y());
+    circle.setFillColor(color);
+    window_.draw(circle);
+}
+
+// ------------------------------------------
+
+void Graphics::Desktop::draw_rectangle(const Vector& pos, const double length, const double width, sf::Color color)
+{
+    sf::RectangleShape rec;
+    rec.setSize({length, width});
+    rec.setPosition(pos.get_x(), pos.get_y());
+    rec.setFillColor(color);
+    window_.draw(rec);
+}
+
 // ----------------------------------------------------------------------
 
 Vector get_mouse_position(const Graphics::Desktop& window)
@@ -90,3 +112,4 @@ Vector get_mouse_position(const Graphics::Desktop& window)
 
     return pos;
 }
+

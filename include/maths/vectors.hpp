@@ -27,6 +27,7 @@ Vector operator-(const Vector& self);
 Vector operator-(const Vector& self, const Vector& second);
 Vector operator+(const Vector& self, const Vector& second);
 Vector operator*(const Vector& self, const double scalar);
+double operator*(const Vector& self, const Vector& other);
 Vector operator/(const Vector& self, const double scalar);
 
 static const Vector NAN_VECTOR = {NAN, NAN};

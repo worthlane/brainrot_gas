@@ -133,10 +133,7 @@ Vector reflect_vector(const Vector& falling, const Vector& normal)
 {
     Vector normalized = normal.normalize();
 
-    double length = falling.get_length();
-    double cos    = cosinus(falling, normal);
-
-    Vector reflected = normalized * (2 * length * cos) - falling;
+    Vector reflected = falling - normalized * (2 * (falling * normalized));
 
     return reflected;
 }
@@ -148,6 +145,13 @@ bool directed_towards(const Vector& first, const Vector& second)
     double cos = cosinus(first, second);
 
     return (cos > 0) ? true : false;
+}
+
+// ----------------------------------------------------------------------
+
+double operator*(const Vector& self, const Vector& other)
+{
+    return self.get_x() * other.get_x() + self.get_y() * other.get_y();
 }
 
 // ----------------------------------------------------------------------

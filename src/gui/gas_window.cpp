@@ -13,5 +13,7 @@ GasWindow::~GasWindow()
 
 void GasWindow::draw(Graphics::Desktop& desktop) const
 {
+    desktop.draw_rectangle(top_left_, length_, width_, sf::Color(200, 200, 200));
+
     gas_->draw(desktop, *this);
 }

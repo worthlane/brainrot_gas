@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <assert.h>
+#include <iostream>
 #include <cmath>
 
 #include "scene/molecules.hpp"
 
 Scene::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
-                position_(position), speed_(speed), mass_(mass), radius_(radius), impulse_(speed * mass)
+                        position_(position), speed_(speed), mass_(mass), radius_(radius), impulse_(speed * mass)
 {
 }
 
@@ -32,34 +33,39 @@ void Scene::SigmaMolecule::draw(Graphics::Desktop& desktop, const Window& window
 
     Vector top_left = window_offset + system.coords_to_pixel({position_.get_x(),
                                                               position_.get_y()});
+    double radius = radius_ / system.get_scale();
+    /*Vector center_offset = {radius, radius};
+    top_left = top_left - center_offset;*/
 
-    sf::CircleShape circle;
-    circle.setRadius(radius_ / system.get_scale());
-    circle.setPosition(top_left.get_x(), top_left.get_y());
-    circle.setFillColor(sf::Color::Blue);
-    desktop.window_.draw(circle);
+    desktop.draw_circle(top_left, radius, sf::Color::Blue);
 }
 
 void Scene::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& window) const
 {
     CoordSystem system   = window.get_system();
     Vector window_offset = window.get_top_left();
+    double side = 2 * radius_ / system.get_scale();
 
     Vector top_left = window_offset + system.coords_to_pixel({position_.get_x(),
                                                               position_.get_y()});
+    /*Vector center_offset = {side / 2, side / 2};
+    top_left = top_left - center_offset;*/
 
-    sf::RectangleShape rec;
-    rec.setSize({radius_ / system.get_scale(), radius_ / system.get_scale()});
-    rec.setPosition(top_left.get_x(), top_left.get_y());
-    rec.setFillColor(sf::Color::Red);
-    desktop.window_.draw(rec);
+    desktop.draw_rectangle(top_left, side, side, sf::Color::Red);
 }
 
 bool Scene::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
 {
     static const double TICK_COEF = 5e-4;
 
+    //position_.print();
+
     position_ = position_ + (speed_ * TICK_COEF);
+
+    //position_.print();
+    //std::cout << "---\n";
+    //speed_.print();
+    //std::cout << "---\n";
 }
 
 

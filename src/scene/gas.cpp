@@ -4,7 +4,7 @@
 
 static const sf::Color BACKGROUND_COLOR = sf::Color(50, 50, 50);
 
-static void draw_background(Graphics::Desktop& desktop, const Window& window);
+static void draw_container(const Scene::GasContainer& gas, Graphics::Desktop& desktop, const Window& window);
 //static void check_wall_collisions(Scene::Gas& gas, Scene::Molecule* molecule);
 
 Scene::GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
@@ -23,7 +23,7 @@ Scene::GasContainer::~GasContainer()
 
 void Scene::GasContainer::draw(Graphics::Desktop& desktop, const Window& window) const
 {
-    draw_background(desktop, window);
+    draw_container(*this, desktop, window);
 
     size_t size = molecules_.size();
 
@@ -50,15 +50,17 @@ void Scene::GasContainer::add_molecule(Molecule* molecule)
 
 // ----------------------------------------------
 
-static void draw_background(Graphics::Desktop& desktop, const Window& window)
+static void draw_container(const Scene::GasContainer& gas, Graphics::Desktop& desktop, const Window& window)
 {
-    Vector top_left = window.get_top_left();
+    CoordSystem system  = window.get_system();
+    Vector pixel_offset = window.get_top_left();
+    Vector top_left     = gas.get_top_left();
+    Vector top_pixel    = pixel_offset + system.coords_to_pixel(top_left);
 
-    sf::RectangleShape rec;
-    rec.setSize({window.get_length(), window.get_width()});
-    rec.setPosition(top_left.get_x(), top_left.get_y());
-    rec.setFillColor(BACKGROUND_COLOR);
-    desktop.window_.draw(rec);
+    double pixel_width  = gas.get_width() / system.get_scale();
+    double pixel_length = gas.get_length() / system.get_scale();
+
+    desktop.draw_rectangle(top_pixel, pixel_length, pixel_width, BACKGROUND_COLOR);
 }
 
 // ----------------------------------------------

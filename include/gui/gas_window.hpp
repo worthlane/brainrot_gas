@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gui/window.hpp"
-#include "scene/gas.hpp"
+#include "model/gas.hpp"
 
 class GasWindow : public Window, DesktopDrawable
 {

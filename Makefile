@@ -40,8 +40,8 @@ SOURCES = main.cpp
 GUI_SOURCES = buttons.cpp button_manager.cpp window.cpp gas_window.cpp
 GUI_DIR = $(SOURCE_DIR)/gui
 
-SCENE_SOURCES = molecules.cpp gas.cpp physical.cpp
-SCENE_DIR = $(SOURCE_DIR)/scene
+MODEL_SOURCES = molecules.cpp gas.cpp physical.cpp
+MODEL_DIR = $(SOURCE_DIR)/model
 
 MATHS_SOURCES = coord_system.cpp vectors.cpp
 MATHS_DIR = $(SOURCE_DIR)/maths
@@ -51,7 +51,7 @@ GRAPHICS_DIR = $(SOURCE_DIR)/graphics
 
 OBJECTS = $(SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 GUI_OBJECTS = $(GUI_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
-SCENE_OBJECTS = $(SCENE_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
+MODEL_OBJECTS = $(MODEL_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 MATHS_OBJECTS = $(MATHS_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 GRAPHICS_OBJECTS = $(GRAPHICS_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 
@@ -62,7 +62,7 @@ all: $(EXECUTABLE)
 
 # -------------------------------------------------------------------------------
 
-$(EXECUTABLE): $(OBJECTS) $(GUI_OBJECTS) $(SCENE_OBJECTS) $(MATHS_OBJECTS) $(GRAPHICS_OBJECTS)
+$(EXECUTABLE): $(OBJECTS) $(GUI_OBJECTS) $(MODEL_OBJECTS) $(MATHS_OBJECTS) $(GRAPHICS_OBJECTS)
 	$(CXX) $^ -o $@ $(CXXFLAGS)
 
 $(BUILD_DIR)/%.o : $(SOURCE_DIR)/%.cpp
@@ -71,7 +71,7 @@ $(BUILD_DIR)/%.o : $(SOURCE_DIR)/%.cpp
 $(BUILD_DIR)/%.o : $(GUI_DIR)/%.cpp
 	$(CXX) -c $^ -o $@ $(CXXFLAGS)
 
-$(BUILD_DIR)/%.o : $(SCENE_DIR)/%.cpp
+$(BUILD_DIR)/%.o : $(MODEL_DIR)/%.cpp
 	$(CXX) -c $^ -o $@ $(CXXFLAGS)
 
 $(BUILD_DIR)/%.o : $(MATHS_DIR)/%.cpp

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "scene/molecules.hpp"
+#include "model/molecules.hpp"
 
 Scene::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass) :
                         position_(position), speed_(speed), mass_(mass), radius_(RADIUS_TO_MASS_COEF * mass), impulse_(speed * mass)
@@ -56,7 +56,7 @@ void Scene::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& wind
 
 bool Scene::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
 {
-    static const double TICK_COEF = 1e-4;
+    static const double TICK_COEF = 5e-4;
 
     position_ = position_ + (speed_ * TICK_COEF);
 }

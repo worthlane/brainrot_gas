@@ -6,7 +6,7 @@
 #include "graphics/visual.hpp"
 #include "gui/manager.hpp"
 #include "gui/gas_window.hpp"
-#include "scene/gas.hpp"
+#include "model/gas.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;
@@ -22,17 +22,17 @@ int main()
 {
     Graphics::Desktop desktop = {LENGTH, WIDTH, "Gas"};
 
-    Scene::GasContainer gas = {{-5, 5}, {5, -5}};
+    Scene::GasContainer gas = {{-20, 10}, {20, -10}};
 
     Scene::SigmaMolecule mol = {{0, -1}, {10, 7}, 2};
     Scene::SigmaMolecule mol2 = {{0, 0}, {3, 0}, 1};
-    Scene::SkibidiMolecule mol3 = {{0, 0}, {3, 2}, 2};
+    Scene::SkibidiMolecule mol3 = {{0, 0}, {3, 2}, 1};
 
     GasWindow window = {1000, 500, {40, 40}, &gas};
 
-    gas.add_molecule(&mol);
-    gas.add_molecule(&mol2);
-    gas.add_molecule(&mol3);
+    gas.add_molecule(Scene::MoleculeType::SIGMA, {0, -1}, {10, 7}, 2);
+    gas.add_molecule(Scene::MoleculeType::SIGMA, {0, 0}, {3, 0}, 1);
+    gas.add_molecule(Scene::MoleculeType::SKIBIDI, {0, 0}, {3, 2}, 1);
 
     while (desktop.is_open())
     {

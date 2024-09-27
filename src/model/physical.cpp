@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "scene/physical.hpp"
+#include "model/physical.hpp"
 
 static const Vector UPPER_NORMAL = {0, -1};
 static const Vector RIGHT_NORMAL = {-1, 0};

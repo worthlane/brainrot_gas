@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gui/manager.hpp"
-#include "scene/molecules.hpp"
+#include "model/molecules.hpp"
 
 class GasPhysics : public Manager<Scene::Molecule>, Updatable
 {

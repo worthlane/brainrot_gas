@@ -15,10 +15,12 @@ class GasContainer : public Updatable, WindowDrawable
         ~GasContainer();
 
         Vector get_top_left() const { return physics_.top_left; }
+        Vector get_down_right() const { return physics_.down_right; }
         double get_length()   const { return physics_.down_right.get_x() - physics_.top_left.get_x(); }
         double get_width()    const { return physics_.top_left.get_y()   - physics_.down_right.get_y(); }
 
         void add_molecule(const Scene::MoleculeType type, const Vector& position, const Vector& speed, const double mass);
+        void add_molecule(const Scene::MoleculeType type, const double mass);
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
 

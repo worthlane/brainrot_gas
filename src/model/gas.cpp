@@ -5,7 +5,6 @@
 static const sf::Color BACKGROUND_COLOR = sf::Color(50, 50, 50);
 
 static void draw_container(const Scene::GasContainer& gas, Graphics::Desktop& desktop, const Window& window);
-//static void check_wall_collisions(Scene::Gas& gas, Scene::Molecule* molecule);
 
 Scene::GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
                                 physics_(top_left, down_right)
@@ -44,7 +43,6 @@ void Scene::GasContainer::draw(Graphics::Desktop& desktop, const Window& window)
 
 bool Scene::GasContainer::update(Graphics::Desktop& window, Graphics::Event& event)
 {
-
     return physics_.update(window, event);
 }
 
@@ -66,8 +64,26 @@ void Scene::GasContainer::add_molecule(const Scene::MoleculeType type, const Vec
             return;
     }
 
-    molecules_.push_back(molecule);
+    molecules_.push_back(molecule); // TODO trace trap
     physics_.add(molecule);
+}
+
+// ----------------------------------------------
+
+void Scene::GasContainer::add_molecule(const Scene::MoleculeType type, const double mass)
+{
+    Scene::Molecule* molecule = nullptr;
+
+    static const double FIX_WALL_COLLISION = 0.8;
+
+    Dot top_left = this->get_top_left();
+    Dot down_right = this->get_down_right();
+
+    Vector position = {rand_double(top_left.get_x(), down_right.get_x()),
+                       rand_double(down_right.get_y(), top_left.get_y())};
+    Vector speed = {rand_double(-1, 1), rand_double(-1, 1)};
+
+    this->add_molecule(type, position, speed, mass);
 }
 
 // ----------------------------------------------

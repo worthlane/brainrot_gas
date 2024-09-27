@@ -1,6 +1,8 @@
 #include <cmath>
 #include <stdio.h>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <assert.h>
 
 #include "maths/vectors.hpp"
@@ -10,6 +12,13 @@ static bool is_zero(const double num);
 static const double EPSILON = 1e-9;
 
 // ================================================================
+
+double rand_double(const double min, const double max)
+{
+    return min + static_cast<double>(rand()) / RAND_MAX * (max - min);
+}
+
+// --------------------------------------------------------------------
 
 Vector::Vector(const double x, const double y)
 {

@@ -45,3 +45,4 @@ enum CompareResult
 };
 
 CompareResult compare_double(const double first, const double second);
+double rand_double(const double min, const double max);

@@ -98,20 +98,24 @@ static void wall_collision(Scene::Molecule* molecule, const Vector& top_left, co
     if (pos.get_y() + radius > upper_limit)
     {
         elastic_reflection(molecule, UPPER_NORMAL);
+        molecule->set_position({pos.get_x(), upper_limit - radius});
     }
 
     if (pos.get_y() - radius < down_limit)
     {
         elastic_reflection(molecule, DOWN_NORMAL);
+        molecule->set_position({pos.get_x(), down_limit + radius});
     }
 
     if (pos.get_x() + radius > right_limit)
     {
         elastic_reflection(molecule, RIGHT_NORMAL);
+        molecule->set_position({right_limit - radius, pos.get_y()});
     }
 
     if (pos.get_x() - radius < left_limit)
     {
         elastic_reflection(molecule, LEFT_NORMAL);
+        molecule->set_position({left_limit + radius, pos.get_y()});
     }
 }

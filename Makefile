@@ -37,7 +37,7 @@ DOXYBUILD = doxygen $(DOXYFILE)
 
 SOURCES = main.cpp
 
-GUI_SOURCES = buttons.cpp button_manager.cpp window.cpp gas_window.cpp
+GUI_SOURCES = buttons.cpp button_manager.cpp window.cpp gas_window.cpp window_manager.cpp
 GUI_DIR = $(SOURCE_DIR)/gui
 
 MODEL_SOURCES = molecules.cpp gas.cpp physical.cpp

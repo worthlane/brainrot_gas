@@ -56,9 +56,11 @@ void Scene::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& wind
 
 bool Scene::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
 {
-    static const double TICK_COEF = 5e-4;
+    static const double TICK_COEF = 5e-3;
 
     position_ = position_ + (speed_ * TICK_COEF);
+
+    return true;
 }
 
 

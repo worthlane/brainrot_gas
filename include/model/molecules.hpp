@@ -27,6 +27,8 @@ class Molecule : public WindowDrawable, Updatable
 
         bool update(Graphics::Desktop& window, Graphics::Event& event) override;
 
+        bool is_deleted = false;
+
     protected:
         Vector position_;
 
@@ -64,6 +66,3 @@ class SkibidiMolecule : public Molecule
 };
 
 }
-
-
-double calculate_sphere_z(const Vector& xy, const double radius);

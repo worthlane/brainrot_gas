@@ -28,6 +28,9 @@ void Model::Molecule::set_impulse(const Vector& impulse)
 
 void Model::SigmaMolecule::draw(Graphics::Desktop& desktop, const Window& window) const
 {
+    if (is_deleted)
+        return;
+
     CoordSystem system   = window.get_system();
     Vector window_offset = window.get_top_left();
 
@@ -42,6 +45,9 @@ void Model::SigmaMolecule::draw(Graphics::Desktop& desktop, const Window& window
 
 void Model::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& window) const
 {
+    if (is_deleted)
+        return;
+    
     CoordSystem system   = window.get_system();
     Vector window_offset = window.get_top_left();
     double side = 2 * radius_ / system.get_scale();
@@ -56,6 +62,9 @@ void Model::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& wind
 
 bool Model::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
 {
+    if (is_deleted)
+        return false;
+
     static const double TICK_COEF = 5e-3;
 
     position_ = position_ + (speed_ * TICK_COEF);

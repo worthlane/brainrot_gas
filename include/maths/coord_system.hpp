@@ -2,11 +2,11 @@
 
 #include "maths/vectors.hpp"
 
-class RectangleSystem
+class CoordSystem
 {
     public:
-        RectangleSystem(const size_t length, const size_t width, const double scale, const Vector& center);
-        ~RectangleSystem();
+        CoordSystem(const size_t length, const size_t width, const double scale, const Vector& center);
+        ~CoordSystem();
 
         size_t get_width()  const;
         size_t get_length() const;

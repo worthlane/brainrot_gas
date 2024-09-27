@@ -1,30 +1,29 @@
 #pragma once
 
 #include "scene/molecules.hpp"
+#include "scene/physical.hpp"
+#include "maths/coord_system.hpp"
+#include "gui/window.hpp"
 
 namespace Scene
 {
 
-class Gas
+class GasContainer : public Updatable, WindowDrawable
 {
     public:
-        Gas(const Vector& top_left, const double width, const double height);
-        ~Gas();
+        GasContainer(const Vector& top_left, const Vector& down_right);
+        ~GasContainer();
 
-        Vector  get_top_left() const { return top_left_; }
-        size_t  get_width()  const { return width_; }
-        size_t  get_height() const { return height_; }
+        void add_molecule(Molecule* molecule);
 
-        void add_molecule(Molecule* molecule) { molecules_.push_back(molecule); }
+        void draw(Graphics::Desktop& desktop, const Window& window) const override;
 
-        void draw(Graphics::Window& window);
-
+        bool update(Graphics::Desktop& window, Graphics::Event& event) override;
 
     private:
         std::vector<Molecule*> molecules_;
 
-        Vector top_left_;
-        double width_, height_;
+        GasPhysics physics_;
 };
 
 }

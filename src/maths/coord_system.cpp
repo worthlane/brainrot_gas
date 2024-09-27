@@ -8,7 +8,7 @@ static const size_t Y_CENTER_STD = 320;
 static const double DX = 1;
 static const double DY = 1;
 
-RectangleSystem::RectangleSystem(const size_t length, const size_t width, const double scale, const Vector& center) :
+CoordSystem::CoordSystem(const size_t length, const size_t width, const double scale, const Vector& center) :
     center_(center)
 {
     scale_ = scale;
@@ -19,7 +19,7 @@ RectangleSystem::RectangleSystem(const size_t length, const size_t width, const 
 
 // ----------------------------------------------------------------------
 
-RectangleSystem::~RectangleSystem()
+CoordSystem::~CoordSystem()
 {
     scale_ = NAN;
 
@@ -29,21 +29,21 @@ RectangleSystem::~RectangleSystem()
 
 // ----------------------------------------------------------------------
 
-size_t RectangleSystem::get_width() const
+size_t CoordSystem::get_width() const
 {
     return width_;
 }
 
 // ----------------------------------------------------------------------
 
-size_t RectangleSystem::get_length() const
+size_t CoordSystem::get_length() const
 {
     return length_;
 }
 
 // ----------------------------------------------------------------------
 
-Vector RectangleSystem::coords_to_pixel(const Vector& vec)
+Vector CoordSystem::coords_to_pixel(const Vector& vec)
 {
     double x = vec.get_x();
     double y = vec.get_y();
@@ -60,7 +60,7 @@ Vector RectangleSystem::coords_to_pixel(const Vector& vec)
 
 // ----------------------------------------------------------------------
 
-Vector RectangleSystem::pixel_to_coords(const Vector& pixel)
+Vector CoordSystem::pixel_to_coords(const Vector& pixel)
 {
     Vector screen_center = {length_ / 2, width_ / 2};
 
@@ -73,14 +73,14 @@ Vector RectangleSystem::pixel_to_coords(const Vector& pixel)
 
 // ----------------------------------------------------------------------
 
-double RectangleSystem::get_scale() const
+double CoordSystem::get_scale() const
 {
     return scale_;
 }
 
 // ----------------------------------------------------------------------
 
-void RectangleSystem::set_center(const Vector& center)
+void CoordSystem::set_center(const Vector& center)
 {
     center_ = center;
 }

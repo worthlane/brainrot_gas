@@ -1,18 +1,23 @@
 #pragma once
 
 #include "graphics/visual.hpp"
-#include "gui/buttons.hpp"
 
+class Updatable
+{
+    public:
+        virtual bool update(Graphics::Desktop& window, Graphics::Event& event) = 0;
+
+};
+
+template <typename T>
 class Manager
 {
     public:
-        Manager();
-        ~Manager();
+        Manager() {}
+        ~Manager() { objects_.clear(); }
 
-        void add_button(AButton* button);
+        void add(T* object) { objects_.push_back(object); }
 
-        bool update(Graphics::Window& window, Graphics::Event& event);
-
-    private:
-        std::vector<AButton*> buttons_;
+    protected:
+        std::vector<T*> objects_;
 };

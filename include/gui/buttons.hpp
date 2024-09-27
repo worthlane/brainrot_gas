@@ -4,8 +4,8 @@
 #include <chrono>
 
 #include "graphics/visual.hpp"
-
-Vector get_mouse_position(const Graphics::Window& window);
+#include "gui/window.hpp"
+#include "gui/manager.hpp"
 
 enum class ButtonCondition
 {
@@ -15,39 +15,30 @@ enum class ButtonCondition
     RELEASED
 };
 
-enum class ButtonType
-{
-    HOLD,
-    RELEASE,
-    DISABLED
-};
-
 class Action
 {
     public:
         virtual void operator()(Graphics::Event& event) = 0;
 };
 
-class AButton
+class AButton : public Window, Updatable
 {
     public:
-        AButton(const size_t length, const size_t width, const Dot& upper_left,
+        AButton(const size_t length, const size_t width, const Dot& top_left,
                 const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released, Action* action);
-        AButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
+        AButton(const size_t length, const size_t width, const Dot& top_left, Action* action);
         ~AButton();
 
-        virtual bool on_default(Graphics::Window& window, Graphics::Event& event);
-        virtual bool on_hover(Graphics::Window& window, Graphics::Event& event);
-        virtual bool on_click(Graphics::Window& window, Graphics::Event& event);
-        virtual bool on_release(Graphics::Window& window, Graphics::Event& event);
+        virtual bool on_default(Graphics::Desktop& window, Graphics::Event& event);
+        virtual bool on_hover(Graphics::Desktop& window, Graphics::Event& event);
+        virtual bool on_click(Graphics::Desktop& window, Graphics::Event& event);
+        virtual bool on_release(Graphics::Desktop& window, Graphics::Event& event);
 
-        bool is_hovered(const Graphics::Window& window);
+        bool is_hovered(const Graphics::Desktop& window);
 
-        bool update(Graphics::Window& window, Graphics::Event& event);
+        bool update(Graphics::Desktop& window, Graphics::Event& event) override;
 
     protected:
-        size_t width_, length_;
-        Dot upper_left_;
 
         ButtonCondition cond_ = ButtonCondition::DEFAULT;
 
@@ -58,17 +49,17 @@ class AButton
         sf::Texture pressed_;
         sf::Texture released_;
 
-        void handle_default_(Graphics::Window& window);
-        void handle_hover_(Graphics::Window& window);
-        void handle_click_(Graphics::Window& window);
-        void handle_release_(Graphics::Window& window);
+        void handle_default_(Graphics::Desktop& window);
+        void handle_hover_(Graphics::Desktop& window);
+        void handle_click_(Graphics::Desktop& window);
+        void handle_release_(Graphics::Desktop& window);
 };
 
 #define DRAW_BUTTON(window, texture)    do                              \
                                         {                               \
                                             Graphics::Sprite sprite;    \
                                             sprite.set_texture(texture);\
-                                            sprite.set_position(upper_left_.get_x(), upper_left_.get_y());  \
+                                            sprite.set_position(top_left_.get_x(), top_left_.get_y());  \
                                             window.draw(sprite);                                            \
                                         } while(0)
 

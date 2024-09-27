@@ -37,16 +37,16 @@ DOXYBUILD = doxygen $(DOXYFILE)
 
 SOURCES = main.cpp
 
-GUI_SOURCES = buttons.cpp manager.cpp
+GUI_SOURCES = buttons.cpp button_manager.cpp window.cpp gas_window.cpp
 GUI_DIR = $(SOURCE_DIR)/gui
 
-SCENE_SOURCES = molecules.cpp gas.cpp
+SCENE_SOURCES = molecules.cpp gas.cpp physical.cpp
 SCENE_DIR = $(SOURCE_DIR)/scene
 
 MATHS_SOURCES = coord_system.cpp vectors.cpp
 MATHS_DIR = $(SOURCE_DIR)/maths
 
-GRAPHICS_SOURCES = visual.cpp pixels_array.cpp convertion.cpp
+GRAPHICS_SOURCES = visual.cpp convertion.cpp
 GRAPHICS_DIR = $(SOURCE_DIR)/graphics
 
 OBJECTS = $(SOURCES:%.cpp=$(BUILD_DIR)/%.o)

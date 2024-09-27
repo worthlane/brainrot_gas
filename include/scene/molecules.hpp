@@ -1,13 +1,14 @@
 #pragma once
 
 #include "maths/coord_system.hpp"
-#include "graphics/pixels_array.hpp"
 #include "graphics/visual.hpp"
+#include "gui/manager.hpp"
+#include "gui/window.hpp"
 
 namespace Scene
 {
 
-class Molecule
+class Molecule : public WindowDrawable, Updatable
 {
     public:
         Molecule(const Vector& position, const Vector& speed, const double mass, const double radius);
@@ -16,14 +17,12 @@ class Molecule
         Vector get_position() const { return position_; }
         Vector get_impulse()  const { return impulse_; }
         Vector get_speed()    const { return speed_; }
-        double  get_mass()     const { return mass_; }
-        double  get_radius()   const { return radius_; }
+        double get_mass()     const { return mass_; }
+        double get_radius()   const { return radius_; }
 
-        void move();
+        void   set_impulse(const Vector& impulse);
 
-        void elastic_reflection(const Vector& normal);
-
-        virtual void draw(Graphics::Window& window) = 0;
+        bool update(Graphics::Desktop& window, Graphics::Event& event) override;
 
     protected:
         Vector position_;
@@ -31,8 +30,8 @@ class Molecule
         Vector impulse_;
         Vector speed_;
 
-        double  mass_;
-        double  radius_;
+        double mass_;
+        double radius_;
 };
 
 class SigmaMolecule : public Molecule
@@ -42,19 +41,18 @@ class SigmaMolecule : public Molecule
             Molecule(position, speed, mass, radius) {}
         ~SigmaMolecule() {}
 
-        void draw(Graphics::Window& window) override;
+        void draw(Graphics::Desktop& desktop, const Window& window) const override;
 };
 
-class BetaMolecule : public Molecule
+class SkibidiMolecule : public Molecule
 {
     public:
-        BetaMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
+        SkibidiMolecule(const Vector& position, const Vector& speed, const double mass, const double radius) :
             Molecule(position, speed, mass, radius) {}
-        ~BetaMolecule() {}
+        ~SkibidiMolecule() {}
 
-        void draw(Graphics::Window& window) override;
+        void draw(Graphics::Desktop& desktop, const Window& window) const override;
 };
-
 
 }
 

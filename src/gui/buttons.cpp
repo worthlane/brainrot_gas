@@ -3,26 +3,19 @@
 
 #include "gui/buttons.hpp"
 
-static const double MASK_DELTA = 0.001;
-
-const char* RED_SUBSCRIBE_BUTTON  = "assets/textures/button_default.png";
-const char* GRAY_SUBSCRIBE_BUTTON = "assets/textures/button_pressed.png";
-
-//static const std::chrono::milliseconds ANIMATION_TIME = 3000;
-
 // ----------------------------------------------------------------------
 
-AButton::AButton(const size_t length, const size_t width, const Dot& upper_left,
+AButton::AButton(const size_t length, const size_t width, const Dot& top_left,
                 const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released, Action* action) :
-                length_(length), width_(width), upper_left_(upper_left),
+                Window(length, width, top_left),
                 default_(def), hovered_(hovered), pressed_(pressed), released_(released), action_(action)
 {
 }
 
 // ----------------------------------------------------------------------
 
-AButton::AButton(const size_t length, const size_t width, const Dot& upper_left, Action* action) :
-                length_(length), width_(width), upper_left_(upper_left), action_(action)
+AButton::AButton(const size_t length, const size_t width, const Dot& top_left, Action* action) :
+                Window(length, width, top_left), action_(action)
 {
 }
 
@@ -36,17 +29,17 @@ AButton::~AButton()
 
 // ----------------------------------------------------------------------
 
-bool AButton::is_hovered(const Graphics::Window& window)
+bool AButton::is_hovered(const Graphics::Desktop& window)
 {
     Dot mouse = get_mouse_position(window);
 
     size_t mouse_x = mouse.get_x();
     size_t mouse_y = mouse.get_y();
 
-    size_t left_x  = upper_left_.get_x();
+    size_t left_x  = top_left_.get_x();
     size_t right_x = left_x + length_;
 
-    size_t upper_y = upper_left_.get_y();
+    size_t upper_y = top_left_.get_y();
     size_t lower_y = upper_y + width_;
 
     if ((left_x  <= mouse_x && mouse_x <= right_x) &&
@@ -58,7 +51,7 @@ bool AButton::is_hovered(const Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool AButton::update(Graphics::Window& window, Graphics::Event& event)
+bool AButton::update(Graphics::Desktop& window, Graphics::Event& event)
 {
     switch (cond_)
     {
@@ -87,7 +80,7 @@ bool AButton::update(Graphics::Window& window, Graphics::Event& event)
 
 // ----------------------------------------------------------------------
 
-void AButton::handle_default_(Graphics::Window& window)
+void AButton::handle_default_(Graphics::Desktop& window)
 {
     bool is_hovered = this->is_hovered(window);
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
@@ -101,7 +94,7 @@ void AButton::handle_default_(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-void AButton::handle_hover_(Graphics::Window& window)
+void AButton::handle_hover_(Graphics::Desktop& window)
 {
     bool is_hovered = this->is_hovered(window);
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
@@ -118,7 +111,7 @@ void AButton::handle_hover_(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-void AButton::handle_click_(Graphics::Window& window)
+void AButton::handle_click_(Graphics::Desktop& window)
 {
     bool is_hovered = this->is_hovered(window);
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
@@ -131,7 +124,7 @@ void AButton::handle_click_(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-void AButton::handle_release_(Graphics::Window& window)
+void AButton::handle_release_(Graphics::Desktop& window)
 {
     bool is_hovered = this->is_hovered(window);
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
@@ -141,7 +134,7 @@ void AButton::handle_release_(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool AButton::on_default(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_default(Graphics::Desktop& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, default_);
     return false;
@@ -149,7 +142,7 @@ bool AButton::on_default(Graphics::Window& window, Graphics::Event& event)
 
 // ----------------------------------------------------------------------
 
-bool AButton::on_click(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_click(Graphics::Desktop& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, pressed_);
     return false;
@@ -157,7 +150,7 @@ bool AButton::on_click(Graphics::Window& window, Graphics::Event& event)
 
 // ---------------------------------------------------------------------
 
-bool AButton::on_hover(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_hover(Graphics::Desktop& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, hovered_);
     return false;
@@ -165,27 +158,10 @@ bool AButton::on_hover(Graphics::Window& window, Graphics::Event& event)
 
 // ----------------------------------------------------------------------
 
-bool AButton::on_release(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_release(Graphics::Desktop& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, released_);
     return false;
-}
-
-// ----------------------------------------------------------------------
-
-Vector get_mouse_position(const Graphics::Window& window)
-{
-    sf::Vector2i vector = sf::Mouse::getPosition(window.window_);
-
-    size_t x = vector.x;
-    size_t y = vector.y;
-
-    static const size_t Y_SHIFT = 0;
-    static const size_t X_SHIFT = 0;
-
-    Vector pos = {x - X_SHIFT, y - Y_SHIFT};
-
-    return pos;
 }
 
 // ----------------------------------------------------------------------

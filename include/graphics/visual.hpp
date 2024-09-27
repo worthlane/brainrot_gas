@@ -2,17 +2,17 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "maths/coord_system.hpp"
 #include "graphics/convertion.hpp"
+#include "maths/vectors.hpp"
 
 namespace Graphics
 {
 
-class Window
+class Desktop
 {
     public:
-        Window(const RectangleSystem& system, const char* name);
-        ~Window();
+        Desktop(const size_t length, const size_t width, const char* name);
+        ~Desktop();
 
         bool is_open();
         void clear();
@@ -20,20 +20,23 @@ class Window
         void close();
         void closure_check();
 
-        RectangleSystem get_system() { return system_; }
-        void set_system(const RectangleSystem& system);
-
         bool poll_event(Event& event);
 
-        Vector get_mouse_position();
-
-        void draw(const Sprite& sprite); // TODO convert
+        void draw(const Sprite& sprite);
 
         sf::RenderWindow window_;
 
-    private:
-        RectangleSystem  system_;
-
+        private:
+            size_t width_, length_;
 };
 
 }
+
+class DesktopDrawable
+{
+    public:
+        virtual void draw(Graphics::Desktop& window) const = 0;
+};
+
+Vector get_mouse_position(const Graphics::Desktop& window);
+

@@ -7,7 +7,7 @@
 
 static const double RADIUS_TO_MASS_COEF = 0.5;
 
-namespace Scene
+namespace Model
 {
 
 class Molecule : public WindowDrawable, Updatable

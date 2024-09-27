@@ -7,9 +7,9 @@ static const Vector RIGHT_NORMAL = {-1, 0};
 static const Vector LEFT_NORMAL  = { 1, 0};
 static const Vector DOWN_NORMAL  = { 0, 1};
 
-static void collide(Scene::Molecule* first, Scene::Molecule* second);
-static void elastic_reflection(Scene::Molecule* mol, const Vector& normal);
-static void wall_collision(Scene::Molecule* mol, const Vector& top_left, const Vector& down_right);
+static void collide(Model::Molecule* first, Model::Molecule* second);
+static void elastic_reflection(Model::Molecule* mol, const Vector& normal);
+static void wall_collision(Model::Molecule* mol, const Vector& top_left, const Vector& down_right);
 
 // ===================================================================
 
@@ -35,7 +35,7 @@ bool GasPhysics::update(Graphics::Desktop& window, Graphics::Event& event)
 
 //-------------------------------------------------------------------
 
-static void collide(Scene::Molecule* first, Scene::Molecule* second)
+static void collide(Model::Molecule* first, Model::Molecule* second)
 {
     Vector pos1 = first->get_position();
     Vector pos2 = second->get_position();
@@ -75,7 +75,7 @@ static void collide(Scene::Molecule* first, Scene::Molecule* second)
 
 //-------------------------------------------------------------------
 
-static void elastic_reflection(Scene::Molecule* mol, const Vector& normal)
+static void elastic_reflection(Model::Molecule* mol, const Vector& normal)
 {
     Vector new_impulse = reflect_vector(mol->get_impulse(), normal);
 
@@ -84,7 +84,7 @@ static void elastic_reflection(Scene::Molecule* mol, const Vector& normal)
 
 //-------------------------------------------------------------------
 
-static void wall_collision(Scene::Molecule* molecule, const Vector& top_left, const Vector& down_right)
+static void wall_collision(Model::Molecule* molecule, const Vector& top_left, const Vector& down_right)
 {
     double upper_limit = top_left.get_y();
     double down_limit  = down_right.get_y();

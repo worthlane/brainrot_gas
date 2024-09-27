@@ -4,16 +4,16 @@
 
 static const sf::Color BACKGROUND_COLOR = sf::Color(50, 50, 50);
 
-static void draw_container(const Scene::GasContainer& gas, Graphics::Desktop& desktop, const Window& window);
+static void draw_container(const Model::GasContainer& gas, Graphics::Desktop& desktop, const Window& window);
 
-Scene::GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
+Model::GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
                                 physics_(top_left, down_right)
 {
 }
 
 // ----------------------------------------------
 
-Scene::GasContainer::~GasContainer()
+Model::GasContainer::~GasContainer()
 {
     size_t size = molecules_.size();
 
@@ -27,7 +27,7 @@ Scene::GasContainer::~GasContainer()
 
 // ----------------------------------------------
 
-void Scene::GasContainer::draw(Graphics::Desktop& desktop, const Window& window) const
+void Model::GasContainer::draw(Graphics::Desktop& desktop, const Window& window) const
 {
     draw_container(*this, desktop, window);
 
@@ -41,24 +41,24 @@ void Scene::GasContainer::draw(Graphics::Desktop& desktop, const Window& window)
 
 // ----------------------------------------------
 
-bool Scene::GasContainer::update(Graphics::Desktop& window, Graphics::Event& event)
+bool Model::GasContainer::update(Graphics::Desktop& window, Graphics::Event& event)
 {
     return physics_.update(window, event);
 }
 
 // ----------------------------------------------
 
-void Scene::GasContainer::add_molecule(const Scene::MoleculeType type, const Vector& position, const Vector& speed, const double mass)
+void Model::GasContainer::add_molecule(const Model::MoleculeType type, const Vector& position, const Vector& speed, const double mass)
 {
-    Scene::Molecule* molecule = nullptr;
+    Model::Molecule* molecule = nullptr;
 
     switch (type)
     {
-        case (Scene::MoleculeType::SKIBIDI):
-            molecule = new Scene::SkibidiMolecule(position, speed, mass);
+        case (Model::MoleculeType::SKIBIDI):
+            molecule = new Model::SkibidiMolecule(position, speed, mass);
             break;
-        case (Scene::MoleculeType::SIGMA):
-            molecule = new Scene::SigmaMolecule(position, speed, mass);
+        case (Model::MoleculeType::SIGMA):
+            molecule = new Model::SigmaMolecule(position, speed, mass);
             break;
         default:
             return;
@@ -70,9 +70,9 @@ void Scene::GasContainer::add_molecule(const Scene::MoleculeType type, const Vec
 
 // ----------------------------------------------
 
-void Scene::GasContainer::add_molecule(const Scene::MoleculeType type, const double mass)
+void Model::GasContainer::add_molecule(const Model::MoleculeType type, const double mass)
 {
-    Scene::Molecule* molecule = nullptr;
+    Model::Molecule* molecule = nullptr;
 
     static const double FIX_WALL_COLLISION = 0.8;
 
@@ -88,7 +88,7 @@ void Scene::GasContainer::add_molecule(const Scene::MoleculeType type, const dou
 
 // ----------------------------------------------
 
-static void draw_container(const Scene::GasContainer& gas, Graphics::Desktop& desktop, const Window& window)
+static void draw_container(const Model::GasContainer& gas, Graphics::Desktop& desktop, const Window& window)
 {
     CoordSystem system  = window.get_system();
     Vector pixel_offset = window.get_top_left();

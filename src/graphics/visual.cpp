@@ -2,8 +2,6 @@
 
 static const float DOT_RADIUS = 1.0;
 
-static const Vector NULL_VECTOR = {0, 0};
-
 // ==============================================================
 
 Graphics::Desktop::Desktop(const size_t length, const size_t width, const char* name) :

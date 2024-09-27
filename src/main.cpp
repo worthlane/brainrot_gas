@@ -14,11 +14,6 @@ static const size_t LENGTH = 1280;
 static const size_t WIDTH  = 720;
 static const double SCALE  = 0.05;
 
-static const Vector NULL_VECTOR = {0, 0};
-
-const size_t BUTTON_LENGTH = 130;
-const size_t BUTTON_WIDTH  = 50;
-
 int main()
 {
     srand(time(0));
@@ -26,24 +21,24 @@ int main()
     Graphics::Desktop desktop = {LENGTH, WIDTH, "Gas"};
     WindowManager mgr;
 
-    Scene::GasContainer gas = {{-20, 10}, {20, -10}};
+    Model::GasContainer gas = {{-20, 10}, {20, -10}};
 
-    Scene::SigmaMolecule mol = {{0, -1}, {10, 7}, 2};
-    Scene::SigmaMolecule mol2 = {{0, 0}, {3, 0}, 1};
-    Scene::SkibidiMolecule mol3 = {{0, 0}, {3, 2}, 1};
+    Model::SigmaMolecule mol = {{0, -1}, {10, 7}, 2};
+    Model::SigmaMolecule mol2 = {{0, 0}, {3, 0}, 1};
+    Model::SkibidiMolecule mol3 = {{0, 0}, {3, 2}, 1};
 
     GasWindow gas_window = {1000, 500, {40, 40}, &gas};
 
     mgr.add(&gas_window);
 
     for (size_t i = 0; i < 30; i++)
-        gas.add_molecule(Scene::MoleculeType::SIGMA, 1);
+        gas.add_molecule(Model::MoleculeType::SIGMA, 1);
 
     for (size_t i = 0; i < 20; i++)
-        gas.add_molecule(Scene::MoleculeType::SKIBIDI, 1);
+        gas.add_molecule(Model::MoleculeType::SKIBIDI, 1);
 
-    /*gas.add_molecule(Scene::MoleculeType::SIGMA, {0, 0}, {3, 0}, 1);
-    gas.add_molecule(Scene::MoleculeType::SKIBIDI, {0, 0}, {3, 2}, 1);*/
+    /*gas.add_molecule(Model::MoleculeType::SIGMA, {0, 0}, {3, 0}, 1);
+    gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, 0}, {3, 2}, 1);*/
 
     while (desktop.is_open())
     {

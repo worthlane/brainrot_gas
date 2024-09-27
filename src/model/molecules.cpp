@@ -5,12 +5,12 @@
 
 #include "model/molecules.hpp"
 
-Scene::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass) :
+Model::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass) :
                         position_(position), speed_(speed), mass_(mass), radius_(RADIUS_TO_MASS_COEF * mass), impulse_(speed * mass)
 {
 }
 
-Scene::Molecule::~Molecule()
+Model::Molecule::~Molecule()
 {
     mass_   = NAN;
     radius_ = NAN;
@@ -20,13 +20,13 @@ Scene::Molecule::~Molecule()
     impulse_  = NAN_VECTOR;
 }
 
-void Scene::Molecule::set_impulse(const Vector& impulse)
+void Model::Molecule::set_impulse(const Vector& impulse)
 {
     impulse_ = impulse;
     speed_   = impulse_ / mass_;
 }
 
-void Scene::SigmaMolecule::draw(Graphics::Desktop& desktop, const Window& window) const
+void Model::SigmaMolecule::draw(Graphics::Desktop& desktop, const Window& window) const
 {
     CoordSystem system   = window.get_system();
     Vector window_offset = window.get_top_left();
@@ -40,7 +40,7 @@ void Scene::SigmaMolecule::draw(Graphics::Desktop& desktop, const Window& window
     desktop.draw_circle(top_left, radius, sf::Color::Blue);
 }
 
-void Scene::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& window) const
+void Model::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& window) const
 {
     CoordSystem system   = window.get_system();
     Vector window_offset = window.get_top_left();
@@ -54,7 +54,7 @@ void Scene::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& wind
     desktop.draw_rectangle(top_left, side, side, sf::Color::Red);
 }
 
-bool Scene::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
+bool Model::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
 {
     static const double TICK_COEF = 5e-3;
 

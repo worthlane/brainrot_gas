@@ -24,13 +24,14 @@ class Vector
 typedef Vector Dot;
 
 Vector operator-(const Vector& self);
-Vector operator-(const Vector& self, const Vector& second);
-Vector operator+(const Vector& self, const Vector& second);
+Vector operator-(const Vector& self, const Vector& other);
+Vector operator+(const Vector& self, const Vector& other);
 Vector operator*(const Vector& self, const double scalar);
 double operator*(const Vector& self, const Vector& other);
 Vector operator/(const Vector& self, const double scalar);
 
-static const Vector NAN_VECTOR = {NAN, NAN};
+static const Vector NAN_VECTOR  = {NAN, NAN};
+static const Vector NULL_VECTOR = {  0,   0};
 
 Vector reflect_vector(const Vector& falling, const Vector& normal);
 double cosinus(const Vector& first, const Vector& second);

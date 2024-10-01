@@ -2,14 +2,19 @@
 #include <iostream>
 #include <cmath>
 
-#include "model/chemical.hpp"
+#include <stdio.h>
 
-typedef std::vector<Model::Molecule*> (*reaction_t)(Model::Molecule* self, Model::Molecule* other);
+#include "model/chemical.hpp"
+#include "utils/2Dvtable.hpp"
+
+static std::vector<Model::Molecule*> no_reaction(Model::Molecule* self, Model::Molecule* other) { return {}; }
 
 static std::vector<Model::Molecule*> sigma_sigma_collide(Model::Molecule* self, Model::Molecule* other);
 static std::vector<Model::Molecule*> sigma_skibidi_collide(Model::Molecule* self, Model::Molecule* other);
 static std::vector<Model::Molecule*> skibidi_sigma_collide(Model::Molecule* self, Model::Molecule* other);
 static std::vector<Model::Molecule*> skibidi_skibidi_collide(Model::Molecule* self, Model::Molecule* other);
+
+static void fill_vtable(TwoDVtable<reaction_t>& vtable);
 
 static std::vector<Model::Molecule*> sigma_sigma_collide(Model::Molecule* self, Model::Molecule* other)
 {
@@ -89,9 +94,12 @@ static std::vector<Model::Molecule*> skibidi_skibidi_collide(Model::Molecule* se
 
 std::vector<Model::Molecule*> GasChemistry::update(Graphics::Desktop& window, Graphics::Event& event)
 {
+    TwoDVtable<reaction_t> vtable(Model::MOLECULE_TYPES, no_reaction);
+    fill_vtable(vtable);
+
     size_t size = objects_.size();
 
-    static const double needed_impulse = 0;
+    static const double needed_impulse = (STD_MASS * sqrt(2));
 
     std::vector<Model::Molecule*> new_molecules;
 
@@ -104,19 +112,15 @@ std::vector<Model::Molecule*> GasChemistry::update(Graphics::Desktop& window, Gr
                 Vector impulse1 = objects_[i]->get_impulse();
                 Vector impulse2 = objects_[j]->get_impulse();
 
+                Model::MoleculeType type1 = objects_[i]->get_type();
+                Model::MoleculeType type2 = objects_[j]->get_type();
+
                 if (impulse1.get_length() + impulse2.get_length() < needed_impulse)
                     continue;
 
                 std::vector<Model::Molecule*> res;
 
-                if (objects_[i]->get_type() == Model::MoleculeType::SIGMA && objects_[j]->get_type() == Model::MoleculeType::SIGMA)
-                    res = sigma_sigma_collide(objects_[i], objects_[j]);
-                else if (objects_[i]->get_type() == Model::MoleculeType::SKIBIDI && objects_[j]->get_type() == Model::MoleculeType::SIGMA)
-                    res = skibidi_sigma_collide(objects_[i], objects_[j]);
-                else if (objects_[i]->get_type() == Model::MoleculeType::SIGMA && objects_[j]->get_type() == Model::MoleculeType::SKIBIDI)
-                    res = sigma_skibidi_collide(objects_[i], objects_[j]);
-                else if (objects_[i]->get_type() == Model::MoleculeType::SKIBIDI && objects_[j]->get_type() == Model::MoleculeType::SKIBIDI)
-                    res = skibidi_skibidi_collide(objects_[i], objects_[j]);
+                res = vtable[static_cast<size_t>(type1)][static_cast<size_t>(type2)](objects_[i], objects_[j]);
 
                 size_t res_size = res.size();
 
@@ -127,6 +131,14 @@ std::vector<Model::Molecule*> GasChemistry::update(Graphics::Desktop& window, Gr
     }
 
     return new_molecules;
+}
+
+static void fill_vtable(TwoDVtable<reaction_t>& vtable)
+{
+    vtable[static_cast<size_t>(Model::MoleculeType::SIGMA)][static_cast<size_t>(Model::MoleculeType::SIGMA)]     = sigma_sigma_collide;
+    vtable[static_cast<size_t>(Model::MoleculeType::SIGMA)][static_cast<size_t>(Model::MoleculeType::SKIBIDI)]   = sigma_skibidi_collide;
+    vtable[static_cast<size_t>(Model::MoleculeType::SKIBIDI)][static_cast<size_t>(Model::MoleculeType::SIGMA)]   = skibidi_sigma_collide;
+    vtable[static_cast<size_t>(Model::MoleculeType::SKIBIDI)][static_cast<size_t>(Model::MoleculeType::SKIBIDI)] = skibidi_skibidi_collide;
 }
 
 

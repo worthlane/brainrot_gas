@@ -11,6 +11,8 @@ static const double RADIUS_TO_MASS_COEF = 0.5;
 namespace Model
 {
 
+static const size_t MOLECULE_TYPES = 2;
+
 enum class MoleculeType
 {
     SIGMA   = 0,

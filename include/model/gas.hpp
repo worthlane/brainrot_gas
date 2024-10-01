@@ -2,6 +2,7 @@
 
 #include "model/molecules.hpp"
 #include "model/physical.hpp"
+#include "model/chemical.hpp"
 #include "maths/coord_system.hpp"
 #include "gui/window.hpp"
 
@@ -21,6 +22,7 @@ class GasContainer : public Updatable, WindowDrawable
 
         void add_molecule(const Model::MoleculeType type, const Vector& position, const Vector& speed, const double mass);
         void add_molecule(const Model::MoleculeType type, const double mass);
+        void add_molecules(std::vector<Model::Molecule*>& new_molecules);
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
 
@@ -29,7 +31,8 @@ class GasContainer : public Updatable, WindowDrawable
     private:
         std::vector<Molecule*> molecules_;
 
-        GasPhysics physics_;
+        GasPhysics   physics_;
+        GasChemistry chemistry_;
 };
 
 }

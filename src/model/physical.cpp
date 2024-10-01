@@ -45,7 +45,7 @@ static void collide(Model::Molecule* first, Model::Molecule* second)
     Vector delta_pos = pos1 - pos2;
     double dist = delta_pos.get_length();
 
-    if (dist > len)
+    if (dist > len || first->is_deleted || second->is_deleted)
         return;
 
     Vector impulse1 = first->get_impulse();

@@ -10,6 +10,12 @@ static const double RADIUS_TO_MASS_COEF = 0.5;
 namespace Model
 {
 
+enum class MoleculeType
+{
+    SIGMA   = 0,
+    SKIBIDI = 1,
+};
+
 class Molecule : public WindowDrawable, Updatable
 {
     public:
@@ -27,6 +33,8 @@ class Molecule : public WindowDrawable, Updatable
 
         bool update(Graphics::Desktop& window, Graphics::Event& event) override;
 
+        virtual MoleculeType get_type() const = 0;
+
         bool is_deleted = false;
 
     protected:
@@ -39,12 +47,6 @@ class Molecule : public WindowDrawable, Updatable
         double radius_;
 };
 
-enum class MoleculeType
-{
-    SIGMA   = 0,
-    SKIBIDI = 1,
-};
-
 class SigmaMolecule : public Molecule
 {
     public:
@@ -53,6 +55,8 @@ class SigmaMolecule : public Molecule
         ~SigmaMolecule() { }
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
+
+        MoleculeType get_type() const override { return MoleculeType::SIGMA; };
 };
 
 class SkibidiMolecule : public Molecule
@@ -63,6 +67,10 @@ class SkibidiMolecule : public Molecule
         ~SkibidiMolecule() {}
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
+
+        MoleculeType get_type() const override { return MoleculeType::SKIBIDI; };
 };
 
 }
+
+bool do_intersect(const Model::Molecule* self, const Model::Molecule* other);

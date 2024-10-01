@@ -47,7 +47,7 @@ void Model::SkibidiMolecule::draw(Graphics::Desktop& desktop, const Window& wind
 {
     if (is_deleted)
         return;
-    
+
     CoordSystem system   = window.get_system();
     Vector window_offset = window.get_top_left();
     double side = 2 * radius_ / system.get_scale();
@@ -68,6 +68,22 @@ bool Model::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
     static const double TICK_COEF = 5e-3;
 
     position_ = position_ + (speed_ * TICK_COEF);
+
+    return true;
+}
+
+bool do_intersect(const Model::Molecule* first, const Model::Molecule* second)
+{
+    Vector pos1 = first->get_position();
+    Vector pos2 = second->get_position();
+
+    double len = first->get_radius() + second->get_radius();
+
+    Vector delta_pos = pos1 - pos2;
+    double dist = delta_pos.get_length();
+
+    if (dist > len || first->is_deleted || second->is_deleted)
+        return false;
 
     return true;
 }

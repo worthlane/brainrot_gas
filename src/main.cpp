@@ -23,19 +23,15 @@ int main()
 
     Model::GasContainer gas = {{-20, 10}, {20, -10}};
 
-    Model::SigmaMolecule mol = {{0, -1}, {10, 7}, 2};
-    Model::SigmaMolecule mol2 = {{0, 0}, {3, 0}, 1};
-    Model::SkibidiMolecule mol3 = {{0, 0}, {3, 2}, 1};
-
-    GasWindow gas_window = {1000, 500, {40, 40}, &gas};
+    GasWindow gas_window = {900, 500, {100, 100}, &gas};
 
     mgr.add(&gas_window);
 
     for (size_t i = 0; i < 30; i++)
-        gas.add_molecule(Model::MoleculeType::SIGMA, 1);
+        gas.add_molecule(Model::MoleculeType::SIGMA, 0.5);
 
     for (size_t i = 0; i < 20; i++)
-        gas.add_molecule(Model::MoleculeType::SKIBIDI, 1);
+        gas.add_molecule(Model::MoleculeType::SKIBIDI, 0.5);
 
     /*gas.add_molecule(Model::MoleculeType::SIGMA, {0, 0}, {3, 0}, 1);
     gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, 0}, {3, 2}, 1);*/

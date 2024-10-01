@@ -43,7 +43,28 @@ void Model::GasContainer::draw(Graphics::Desktop& desktop, const Window& window)
 
 bool Model::GasContainer::update(Graphics::Desktop& window, Graphics::Event& event)
 {
-    return physics_.update(window, event);
+    std::vector<Model::Molecule*> new_molecules = chemistry_.update(window, event);
+
+    this->add_molecules(new_molecules);
+
+    physics_.update(window, event);
+
+    return true;
+}
+
+// ----------------------------------------------
+
+void Model::GasContainer::add_molecules(std::vector<Model::Molecule*>& new_molecules)
+{
+    size_t size = new_molecules.size();
+
+    for (size_t i = 0; i < size; i++)
+    {
+        molecules_.push_back(new_molecules[i]);
+
+        physics_.add(new_molecules[i]);
+        chemistry_.add(new_molecules[i]);
+    }
 }
 
 // ----------------------------------------------
@@ -66,6 +87,7 @@ void Model::GasContainer::add_molecule(const Model::MoleculeType type, const Vec
 
     molecules_.push_back(molecule); // TODO trace trap
     physics_.add(molecule);
+    chemistry_.add(molecule);
 }
 
 // ----------------------------------------------

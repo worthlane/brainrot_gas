@@ -3,12 +3,9 @@
 #include "gui/manager.hpp"
 #include "model/molecules.hpp"
 
-class GasChemistry : public Manager<Model::Molecule>, Updatable
+class GasChemistry : public Manager<Model::Molecule>
 {
     public:
-        GasPhysics() {}
-        ~GasPhysics() {}
-
-        bool update(Graphics::Desktop& window, Graphics::Event& event) override;
+        std::vector<Model::Molecule*> update(Graphics::Desktop& window, Graphics::Event& event);
 
 };

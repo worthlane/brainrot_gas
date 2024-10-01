@@ -40,7 +40,7 @@ SOURCES = main.cpp
 GUI_SOURCES = buttons.cpp button_manager.cpp window.cpp gas_window.cpp window_manager.cpp
 GUI_DIR = $(SOURCE_DIR)/gui
 
-MODEL_SOURCES = molecules.cpp gas.cpp physical.cpp
+MODEL_SOURCES = molecules.cpp gas.cpp physical.cpp chemical.cpp
 MODEL_DIR = $(SOURCE_DIR)/model
 
 MATHS_SOURCES = coord_system.cpp vectors.cpp

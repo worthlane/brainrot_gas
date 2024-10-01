@@ -5,6 +5,7 @@
 #include "gui/manager.hpp"
 #include "gui/window.hpp"
 
+static const double STD_MASS            = 0.5;
 static const double RADIUS_TO_MASS_COEF = 0.5;
 
 namespace Model
@@ -27,9 +28,11 @@ class Molecule : public WindowDrawable, Updatable
         Vector get_speed()    const { return speed_; }
         double get_mass()     const { return mass_; }
         double get_radius()   const { return radius_; }
+        double get_kinetic()  const { return 0.5 * mass_ * speed_.get_length() * speed_.get_length(); }
 
         void   set_impulse(const Vector& impulse);
         void   set_position(const Vector& position) { position_ = position; }
+        void   set_params(const Vector& position, const Vector& impulse, const double mass);
 
         bool update(Graphics::Desktop& window, Graphics::Event& event) override;
 

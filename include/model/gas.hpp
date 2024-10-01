@@ -33,6 +33,8 @@ class GasContainer : public Updatable, WindowDrawable
 
         GasPhysics   physics_;
         GasChemistry chemistry_;
+
+        void clear_deleted();
 };
 
 }

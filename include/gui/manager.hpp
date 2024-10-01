@@ -17,6 +17,7 @@ class Manager
         ~Manager() { objects_.clear(); }
 
         void add(T* object) { objects_.push_back(object); }
+        void clear() { objects_.clear(); }
 
     protected:
         std::vector<T*> objects_;

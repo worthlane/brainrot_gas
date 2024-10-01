@@ -2,6 +2,8 @@
 #include <assert.h>
 #include <iostream>
 
+#include <time.h>
+
 #include "maths/vectors.hpp"
 #include "graphics/visual.hpp"
 #include "gui/manager.hpp"
@@ -27,14 +29,15 @@ int main()
 
     mgr.add(&gas_window);
 
-    for (size_t i = 0; i < 30; i++)
-        gas.add_molecule(Model::MoleculeType::SIGMA, 0.5);
+    for (size_t i = 0; i < 100; i++)
+        gas.add_molecule(Model::MoleculeType::SIGMA, STD_MASS);
 
-    for (size_t i = 0; i < 20; i++)
-        gas.add_molecule(Model::MoleculeType::SKIBIDI, 0.5);
+    for (size_t i = 0; i < 0; i++)
+        gas.add_molecule(Model::MoleculeType::SKIBIDI, STD_MASS);
 
-    /*gas.add_molecule(Model::MoleculeType::SIGMA, {0, 0}, {3, 0}, 1);
-    gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, 0}, {3, 2}, 1);*/
+    /*gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, -2}, {0, 0}, 1);
+    gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, 0}, {0, 0}, 2);
+    gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, 2}, {0, 0}, 3);*/
 
     while (desktop.is_open())
     {

@@ -6,7 +6,7 @@
 #include "model/molecules.hpp"
 
 Model::Molecule::Molecule(const Vector& position, const Vector& speed, const double mass) :
-                        position_(position), speed_(speed), mass_(mass), radius_(RADIUS_TO_MASS_COEF * mass), impulse_(speed * mass)
+                        position_(position), speed_(speed), mass_(mass), radius_(RADIUS_TO_MASS_COEF * sqrt(mass)), impulse_(speed * mass)
 {
 }
 
@@ -86,6 +86,17 @@ bool do_intersect(const Model::Molecule* first, const Model::Molecule* second)
         return false;
 
     return true;
+}
+
+void Model::Molecule::set_params(const Vector& position, const Vector& impulse, const double mass)
+{
+    position_ = position;
+    impulse_  = impulse;
+    mass_     = mass;
+
+    radius_   = RADIUS_TO_MASS_COEF * sqrt(mass_);
+
+    speed_    = impulse_ / mass_;
 }
 
 

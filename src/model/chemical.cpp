@@ -6,6 +6,7 @@
 
 #include "model/chemical.hpp"
 #include "utils/2Dvtable.hpp"
+#include "utils/exceptions.hpp"
 
 static std::vector<Model::Molecule*> no_reaction(Model::Molecule* self, Model::Molecule* other) { return {}; }
 
@@ -27,6 +28,10 @@ static std::vector<Model::Molecule*> sigma_sigma_collide(Model::Molecule* self, 
     Model::Molecule* result = new Model::SkibidiMolecule((self->get_position() + other->get_position()) / 2,
                                                           impulse / mass,
                                                           mass);
+
+    if (!result)
+        throw Mystd::Exception(Mystd::ErrorCode::ALLOCATE_FAILED);
+
 
     self->is_deleted = true;
     other->is_deleted = true;
@@ -82,6 +87,9 @@ static std::vector<Model::Molecule*> skibidi_skibidi_collide(Model::Molecule* se
         Vector impulse   = absolute_impulse + relative;
 
         Model::Molecule* sigma = new Model::SigmaMolecule(spawn_pos, impulse, STD_MASS);
+        if (!sigma)
+            throw Mystd::Exception(Mystd::ErrorCode::ALLOCATE_FAILED);
+
         result.push_back(sigma);
     }
 

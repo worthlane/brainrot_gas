@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "model/gas.hpp"
+#include "utils/exceptions.hpp"
 
 static size_t       frame_number  = 0;
 static const size_t FRAME_REFRESH = 10;
@@ -83,10 +84,13 @@ void Model::GasContainer::add_molecule(const Model::MoleculeType type, const Vec
             molecule = new Model::SigmaMolecule(position, speed, mass);
             break;
         default:
-            return;
+            throw Mystd::Exception("Unknown molecule type");
     }
 
-    molecules_.push_back(molecule); // TODO trace trap
+    if (!molecule)
+        throw Mystd::Exception(Mystd::ErrorCode::ALLOCATE_FAILED);
+
+    molecules_.push_back(molecule);
     physics_.add(molecule);
     chemistry_.add(molecule);
 }

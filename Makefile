@@ -49,11 +49,15 @@ MATHS_DIR = $(SOURCE_DIR)/maths
 GRAPHICS_SOURCES = visual.cpp convertion.cpp
 GRAPHICS_DIR = $(SOURCE_DIR)/graphics
 
+UTILS_SOURCES = exceptions.cpp
+UTILS_DIR = $(SOURCE_DIR)/utils
+
 OBJECTS = $(SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 GUI_OBJECTS = $(GUI_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 MODEL_OBJECTS = $(MODEL_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 MATHS_OBJECTS = $(MATHS_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 GRAPHICS_OBJECTS = $(GRAPHICS_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
+UTILS_OBJECTS = $(UTILS_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 
 # ==============================================================
 
@@ -62,7 +66,7 @@ all: $(EXECUTABLE)
 
 # -------------------------------------------------------------------------------
 
-$(EXECUTABLE): $(OBJECTS) $(GUI_OBJECTS) $(MODEL_OBJECTS) $(MATHS_OBJECTS) $(GRAPHICS_OBJECTS)
+$(EXECUTABLE): $(OBJECTS) $(GUI_OBJECTS) $(MODEL_OBJECTS) $(MATHS_OBJECTS) $(GRAPHICS_OBJECTS) $(UTILS_OBJECTS)
 	$(CXX) $^ -o $@ $(CXXFLAGS)
 
 $(BUILD_DIR)/%.o : $(SOURCE_DIR)/%.cpp
@@ -79,6 +83,10 @@ $(BUILD_DIR)/%.o : $(MATHS_DIR)/%.cpp
 
 $(BUILD_DIR)/%.o : $(GRAPHICS_DIR)/%.cpp
 	$(CXX) -c $^ -o $@ $(CXXFLAGS)
+
+$(BUILD_DIR)/%.o : $(UTILS_DIR)/%.cpp
+	$(CXX) -c $^ -o $@ $(CXXFLAGS)
+
 
 # -------------------------------------------------------------------------------
 

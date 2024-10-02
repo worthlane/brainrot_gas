@@ -18,14 +18,6 @@ Model::GasContainer::GasContainer(const Vector& top_left, const Vector& down_rig
 
 Model::GasContainer::~GasContainer()
 {
-    size_t size = molecules_.size();
-
-    for (size_t i = 0; i < size; i++)
-    {
-        delete molecules_[i];
-    }
-
-    molecules_.clear();
 }
 
 // ----------------------------------------------

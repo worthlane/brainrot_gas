@@ -23,7 +23,7 @@ class Molecule : public WindowDrawable, Updatable
 {
     public:
         Molecule(const Vector& position, const Vector& speed, const double mass);
-        ~Molecule();
+        virtual ~Molecule();
 
         Vector get_position() const { return position_; }
         Vector get_impulse()  const { return impulse_; }

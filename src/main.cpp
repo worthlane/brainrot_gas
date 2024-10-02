@@ -58,9 +58,8 @@ int main()
         mgr.draw(desktop);
         gas.update(desktop, event);
 
-        std::cout << clock() - time << std::endl;
-
-        time = clock();
+        /*std::cout << clock() - time << std::endl;
+        time = clock();*/
 
         desktop.display();
 

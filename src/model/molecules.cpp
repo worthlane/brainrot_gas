@@ -65,7 +65,7 @@ bool Model::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
     if (is_deleted)
         return false;
 
-    static const double TICK_COEF = 5e-3;
+    static const double TICK_COEF = 1e-2;
 
     position_ = position_ + (speed_ * TICK_COEF);
 

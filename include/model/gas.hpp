@@ -20,6 +20,8 @@ class GasContainer : public Updatable, WindowDrawable
         double get_length()     const { return physics_.down_right.get_x() - physics_.top_left.get_x(); }
         double get_width()      const { return physics_.top_left.get_y()   - physics_.down_right.get_y(); }
 
+        std::vector<Molecule*>& get_molecules() { return molecules_; }
+
         void add_molecule(const Model::MoleculeType type, const Vector& position, const Vector& speed, const double mass);
         void add_molecule(const Model::MoleculeType type, const double mass);
         void add_molecules(std::vector<Model::Molecule*>& new_molecules);

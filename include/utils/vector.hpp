@@ -2,7 +2,7 @@
 
 namespace Mystd
 {
-    template<typename T>
+    template <typename T>
     class Vector
     {
         Vector();

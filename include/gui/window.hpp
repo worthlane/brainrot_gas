@@ -4,7 +4,7 @@
 #include "maths/vectors.hpp"
 #include "maths/coord_system.hpp"
 
-class Window : public DesktopDrawable
+class Window : public DesktopDrawable, Updatable
 {
     public:
         Window(const size_t length, const size_t width, const Dot& top_left_);
@@ -15,6 +15,8 @@ class Window : public DesktopDrawable
         size_t  get_length()     const { return length_; }
 
         CoordSystem get_system() const { return system_; }
+
+        virtual bool update(Graphics::Desktop& window, Graphics::Event& event) { return false; }
 
     protected:
         size_t width_, length_;

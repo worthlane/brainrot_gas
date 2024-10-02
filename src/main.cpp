@@ -25,19 +25,26 @@ int main()
 
     Model::GasContainer gas = {{-20, 10}, {20, -10}};
 
-    GasWindow gas_window = {900, 500, {100, 100}, &gas};
+    GasWindow gas_window = {850, 450, {10, 10}, &gas};
 
     mgr.add(&gas_window);
 
-    for (size_t i = 0; i < 100; i++)
+    for (size_t i = 0; i < 50; i++)
         gas.add_molecule(Model::MoleculeType::SIGMA, STD_MASS);
 
-    for (size_t i = 0; i < 0; i++)
+    for (size_t i = 0; i < 50; i++)
         gas.add_molecule(Model::MoleculeType::SKIBIDI, STD_MASS);
 
-    /*gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, -2}, {0, 0}, 1);
-    gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, 0}, {0, 0}, 2);
-    gas.add_molecule(Model::MoleculeType::SKIBIDI, {0, 2}, {0, 0}, 3);*/
+    PercentageDependence sigma_percentage_dependence   = {gas, Model::MoleculeType::SIGMA};
+    PercentageDependence skibidi_percentage_dependence = {gas, Model::MoleculeType::SKIBIDI};
+
+    Plot sigma_percentage = {200, 100, {900, 10}, &sigma_percentage_dependence, 1, 0};
+    Plot skibidi_percentage = {200, 100, {900, 120}, &skibidi_percentage_dependence, 1, 0};
+
+    mgr.add(&sigma_percentage);
+    mgr.add(&skibidi_percentage);
+
+    clock_t time = clock();
 
     while (desktop.is_open())
     {
@@ -47,10 +54,17 @@ int main()
 
         desktop.clear();
 
+        mgr.update(desktop, event);
         mgr.draw(desktop);
         gas.update(desktop, event);
 
+        std::cout << clock() - time << std::endl;
+
+        time = clock();
+
         desktop.display();
+
+        //sf::sleep(sf::seconds(0.001));
     }
 
     return 0;

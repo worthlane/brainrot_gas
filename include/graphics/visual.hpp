@@ -40,5 +40,12 @@ class DesktopDrawable
         virtual void draw(Graphics::Desktop& window) const = 0;
 };
 
+class Updatable
+{
+    public:
+        virtual bool update(Graphics::Desktop& window, Graphics::Event& event) {};
+
+};
+
 Vector get_mouse_position(const Graphics::Desktop& window);
 

@@ -17,3 +17,43 @@ void GasWindow::draw(Graphics::Desktop& desktop) const
 
     gas_->draw(desktop, *this);
 }
+
+GasDependence::GasDependence(Model::GasContainer& gas) : gas_(gas)
+{}
+
+GasDependence::~GasDependence()
+{}
+
+PercentageDependence::PercentageDependence(Model::GasContainer& gas, const Model::MoleculeType type) : GasDependence(gas), type_(type)
+{}
+
+
+PercentageDependence::~PercentageDependence()
+{}
+
+double PercentageDependence::operator()()
+{
+    std::vector<Model::Molecule*> molecules = gas_.get_molecules();
+
+    size_t size    = molecules.size();
+    size_t typed   = 0;
+    size_t overall = 0;
+
+    for (size_t i = 0; i < size; i++)
+    {
+        if (molecules[i]->is_deleted)
+            continue;
+
+        overall++;
+
+        if (molecules[i]->get_type() == type_)
+            typed++;
+    }
+
+    if (overall == 0)
+        return 0;
+
+    return (double) typed / (double) overall;
+}
+
+

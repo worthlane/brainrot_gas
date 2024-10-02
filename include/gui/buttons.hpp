@@ -64,3 +64,12 @@ class AButton : public Window, Updatable
                                         } while(0)
 
 void default_action(void* params);
+
+/*class RectangleButton : public AButton
+{
+    public:
+        RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
+        ~RectangleButton();
+
+        bool on_click(Graphics::Window& window, Graphics::Event& event)   override;
+};*/

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gui/window.hpp"
+#include "gui/plot.hpp"
 #include "model/gas.hpp"
 
 class GasWindow : public Window, DesktopDrawable
@@ -13,4 +14,26 @@ class GasWindow : public Window, DesktopDrawable
 
     private:
         Model::GasContainer* gas_;
+};
+
+class GasDependence : public Dependence
+{
+    public:
+        GasDependence(Model::GasContainer& gas);
+        ~GasDependence();
+
+    protected:
+        Model::GasContainer& gas_;
+};
+
+class PercentageDependence : public GasDependence
+{
+    public:
+        PercentageDependence(Model::GasContainer& gas, Model::MoleculeType type);
+        ~PercentageDependence();
+
+        double operator()() override;
+
+    private:
+        Model::MoleculeType type_;
 };

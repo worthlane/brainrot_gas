@@ -6,7 +6,7 @@
 static const sf::Color PLOT_BACKGROUND = sf::Color(10,   9, 134);
 static const sf::Color PLOT_LINE       = sf::Color(56, 191, 255);
 
-static const size_t PLOT_FRAME_REFRESH = 100;
+static const u_int64_t PLOT_REFRESH = 100;
 
 Plot::Plot(const size_t length, const size_t width, const Dot& top_left, Dependence* dependence,
             const double max, const double min) :
@@ -26,21 +26,22 @@ Plot::~Plot()
 
 bool Plot::update(Graphics::Desktop& window, Graphics::Event& event)
 {
-    //std::cout << plot_frame++ << std::endl;
+    if (last_update_ == 0)
+    {
+        last_update_ = get_time();
+        return false;
+    }
 
-    plot_frame_++;
+    auto current = get_time();
+    auto time_passed = current - last_update_;
 
     accumulating_value_ += (*dependence_)();
+    functor_launches_++;
 
-    if (plot_frame_ % PLOT_FRAME_REFRESH != 0)
+    if (time_passed < PLOT_REFRESH)
         return false;
 
-    plot_frame_ = 0;
-
-    //std::cout << accumulating_value_ << std::endl;
-    //std::cout << (double) PLOT_FRAME_REFRESH << std::endl;
-
-    double new_value = accumulating_value_ / (double) PLOT_FRAME_REFRESH;
+    double new_value = accumulating_value_ / (double) functor_launches_;
     accumulating_value_ = 0.0;
 
     size_t size = values_.size();
@@ -50,6 +51,9 @@ bool Plot::update(Graphics::Desktop& window, Graphics::Event& event)
     }
 
     values_[size - 1] = new_value;
+
+    functor_launches_ = 0;
+    last_update_      = current;
 
     return true;
 }

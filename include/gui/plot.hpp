@@ -10,7 +10,7 @@ class Dependence
         virtual double operator()() = 0;
 };
 
-class Plot : public Window, DesktopDrawable, Updatable
+class Plot : public Window
 {
     public:
         Plot(const size_t length, const size_t width, const Dot& top_left, Dependence* dependence,
@@ -27,7 +27,6 @@ class Plot : public Window, DesktopDrawable, Updatable
         std::vector<double> values_;
 
         double max_, min_;
-        double accumulating_value_ = 0.0;
-
-        size_t plot_frame_ = 1;
+        double    accumulating_value_ = 0.0;
+        u_int64_t functor_launches_   = 0;
 };

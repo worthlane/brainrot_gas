@@ -65,9 +65,20 @@ bool Model::Molecule::update(Graphics::Desktop& window, Graphics::Event& event)
     if (is_deleted)
         return false;
 
-    static const double TICK_COEF = 1e-2;
+    if (last_update_ == 0)
+    {
+        last_update_ = get_time();
+        return false;
+    }
 
-    position_ = position_ + (speed_ * TICK_COEF);
+    auto current = get_time();
+    auto time_passed = current - last_update_;
+
+    static const double TIME_COEF = 1e-2;
+
+    position_ = position_ + (speed_ * (double) time_passed * TIME_COEF);
+
+    last_update_ = current;
 
     return true;
 }

@@ -4,7 +4,7 @@
 #include "maths/vectors.hpp"
 #include "maths/coord_system.hpp"
 
-class Window : public DesktopDrawable, Updatable
+class Window : public DesktopDrawable, public Updatable
 {
     public:
         Window(const size_t length, const size_t width, const Dot& top_left_);

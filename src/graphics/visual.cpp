@@ -111,3 +111,12 @@ Vector get_mouse_position(const Graphics::Desktop& window)
     return pos;
 }
 
+// ----------------------------------------------------------------------
+
+u_int64_t get_time()
+{
+    auto current = std::chrono::system_clock::now();
+
+    return std::chrono::duration_cast<std::chrono::milliseconds>(current.time_since_epoch()).count();
+}
+

@@ -3,6 +3,9 @@
 
 #include "gui/buttons.hpp"
 
+const char* RED_SUBSCRIBE_BUTTON  = "assets/textures/button_default.png";
+const char* GRAY_SUBSCRIBE_BUTTON = "assets/textures/button_pressed.png";
+
 // ----------------------------------------------------------------------
 
 AButton::AButton(const size_t length, const size_t width, const Dot& top_left,
@@ -136,7 +139,6 @@ void AButton::handle_release_(Graphics::Desktop& window)
 
 bool AButton::on_default(Graphics::Desktop& window, Graphics::Event& event)
 {
-    DRAW_BUTTON(window, default_);
     return false;
 }
 
@@ -144,7 +146,6 @@ bool AButton::on_default(Graphics::Desktop& window, Graphics::Event& event)
 
 bool AButton::on_click(Graphics::Desktop& window, Graphics::Event& event)
 {
-    DRAW_BUTTON(window, pressed_);
     return false;
 }
 
@@ -152,7 +153,6 @@ bool AButton::on_click(Graphics::Desktop& window, Graphics::Event& event)
 
 bool AButton::on_hover(Graphics::Desktop& window, Graphics::Event& event)
 {
-    DRAW_BUTTON(window, hovered_);
     return false;
 }
 
@@ -160,7 +160,6 @@ bool AButton::on_hover(Graphics::Desktop& window, Graphics::Event& event)
 
 bool AButton::on_release(Graphics::Desktop& window, Graphics::Event& event)
 {
-    DRAW_BUTTON(window, released_);
     return false;
 }
 
@@ -170,3 +169,58 @@ void default_action(void* params)
 {
     printf("action\n");
 }
+
+// ----------------------------------------------------------------------
+
+RectangleButton::RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action) :
+    AButton(length, width, upper_left, action)
+{
+    default_.loadFromFile(RED_SUBSCRIBE_BUTTON);
+    pressed_.loadFromFile(GRAY_SUBSCRIBE_BUTTON);
+
+    hovered_ = default_;
+    released_ = pressed_;
+}
+
+// ----------------------------------------------------------------------
+
+RectangleButton::~RectangleButton()
+{
+}
+
+// ----------------------------------------------------------------------
+
+bool RectangleButton::on_release(Graphics::Desktop& window, Graphics::Event& event)
+{
+    (*action_)(event);
+
+    return true;
+}
+
+// ----------------------------------------------------------------------
+
+void AButton::draw(Graphics::Desktop& window) const
+{
+    switch (cond_)
+    {
+        case ButtonCondition::DEFAULT:
+            DRAW_BUTTON(window, default_);
+            break;
+
+        case ButtonCondition::HOVERED:
+            DRAW_BUTTON(window, hovered_);
+            break;
+
+        case ButtonCondition::PRESSED:
+            DRAW_BUTTON(window, pressed_);
+            break;
+
+        case ButtonCondition::RELEASED:
+            DRAW_BUTTON(window, released_);
+            break;
+
+        default:
+            break;
+    }
+}
+

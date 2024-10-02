@@ -37,6 +37,7 @@ class AButton : public Window, Updatable
         bool is_hovered(const Graphics::Desktop& window);
 
         bool update(Graphics::Desktop& window, Graphics::Event& event) override;
+        void draw(Graphics::Desktop& window) const override;
 
     protected:
 
@@ -65,11 +66,11 @@ class AButton : public Window, Updatable
 
 void default_action(void* params);
 
-/*class RectangleButton : public AButton
+class RectangleButton : public AButton
 {
     public:
         RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
         ~RectangleButton();
 
-        bool on_click(Graphics::Window& window, Graphics::Event& event)   override;
-};*/
+        bool on_release(Graphics::Desktop& window, Graphics::Event& event)   override;
+};

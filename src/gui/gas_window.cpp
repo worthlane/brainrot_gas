@@ -18,19 +18,6 @@ void GasWindow::draw(Graphics::Desktop& desktop) const
     gas_->draw(desktop, *this);
 }
 
-GasDependence::GasDependence(Model::GasContainer& gas) : gas_(gas)
-{}
-
-GasDependence::~GasDependence()
-{}
-
-PercentageDependence::PercentageDependence(Model::GasContainer& gas, const Model::MoleculeType type) : GasDependence(gas), type_(type)
-{}
-
-
-PercentageDependence::~PercentageDependence()
-{}
-
 double PercentageDependence::operator()()
 {
     std::vector<Model::Molecule*> molecules = gas_.get_molecules();
@@ -54,6 +41,12 @@ double PercentageDependence::operator()()
         return 0;
 
     return (double) typed / (double) overall;
+}
+
+void AddMolecules::operator()(Graphics::Event& event)
+{
+    for (size_t i = 0; i < amount_; i++)
+        gas_.add_molecule(type_, STD_MASS);
 }
 
 

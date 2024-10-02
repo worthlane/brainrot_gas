@@ -8,22 +8,25 @@ static const size_t FRAME_REFRESH = 10;
 
 static const sf::Color BACKGROUND_COLOR = sf::Color(50, 50, 50);
 
-static void draw_container(const Model::GasContainer& gas, Graphics::Desktop& desktop, const Window& window);
+namespace Model
+{
 
-Model::GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
+static void draw_container(const GasContainer& gas, Graphics::Desktop& desktop, const Window& window);
+
+GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
                                 physics_(top_left, down_right)
 {
 }
 
 // ----------------------------------------------
 
-Model::GasContainer::~GasContainer()
+GasContainer::~GasContainer()
 {
 }
 
 // ----------------------------------------------
 
-void Model::GasContainer::draw(Graphics::Desktop& desktop, const Window& window) const
+void GasContainer::draw(Graphics::Desktop& desktop, const Window& window) const
 {
     draw_container(*this, desktop, window);
 
@@ -37,9 +40,9 @@ void Model::GasContainer::draw(Graphics::Desktop& desktop, const Window& window)
 
 // ----------------------------------------------
 
-bool Model::GasContainer::update(Graphics::Desktop& window, Graphics::Event& event)
+bool GasContainer::update(Graphics::Desktop& window, Graphics::Event& event)
 {
-    std::vector<Model::Molecule*> new_molecules = chemistry_.update(window, event);
+    std::vector<Molecule*> new_molecules = chemistry_.update(window, event);
 
     this->add_molecules(new_molecules);
 
@@ -56,7 +59,7 @@ bool Model::GasContainer::update(Graphics::Desktop& window, Graphics::Event& eve
 
 // ----------------------------------------------
 
-void Model::GasContainer::add_molecules(std::vector<Model::Molecule*>& new_molecules)
+void GasContainer::add_molecules(std::vector<Molecule*>& new_molecules)
 {
     size_t size = new_molecules.size();
 
@@ -71,17 +74,17 @@ void Model::GasContainer::add_molecules(std::vector<Model::Molecule*>& new_molec
 
 // ----------------------------------------------
 
-void Model::GasContainer::add_molecule(const Model::MoleculeType type, const Vector& position, const Vector& speed, const double mass)
+void GasContainer::add_molecule(const MoleculeType type, const Vector& position, const Vector& speed, const double mass)
 {
-    Model::Molecule* molecule = nullptr;
+    Molecule* molecule = nullptr;
 
     switch (type)
     {
-        case (Model::MoleculeType::SKIBIDI):
-            molecule = new Model::SkibidiMolecule(position, speed, mass);
+        case (MoleculeType::SKIBIDI):
+            molecule = new SkibidiMolecule(position, speed, mass);
             break;
-        case (Model::MoleculeType::SIGMA):
-            molecule = new Model::SigmaMolecule(position, speed, mass);
+        case (MoleculeType::SIGMA):
+            molecule = new SigmaMolecule(position, speed, mass);
             break;
         default:
             throw Mystd::Exception("Unknown molecule type");
@@ -97,9 +100,9 @@ void Model::GasContainer::add_molecule(const Model::MoleculeType type, const Vec
 
 // ----------------------------------------------
 
-void Model::GasContainer::add_molecule(const Model::MoleculeType type, const double mass)
+void GasContainer::add_molecule(const MoleculeType type, const double mass)
 {
-    Model::Molecule* molecule = nullptr;
+    Molecule* molecule = nullptr;
 
     static const double FIX_WALL_COLLISION = 0.8;
 
@@ -115,7 +118,7 @@ void Model::GasContainer::add_molecule(const Model::MoleculeType type, const dou
 
 // ----------------------------------------------
 
-static void draw_container(const Model::GasContainer& gas, Graphics::Desktop& desktop, const Window& window)
+static void draw_container(const GasContainer& gas, Graphics::Desktop& desktop, const Window& window)
 {
     CoordSystem system  = window.get_system();
     Vector pixel_offset = window.get_top_left();
@@ -130,11 +133,11 @@ static void draw_container(const Model::GasContainer& gas, Graphics::Desktop& de
 
 // ----------------------------------------------
 
-void Model::GasContainer::clear_deleted()
+void GasContainer::clear_deleted()
 {
     size_t before_size = molecules_.size();
 
-    std::vector<Model::Molecule*> cleared;
+    std::vector<Molecule*> cleared;
 
     for (size_t i = 0; i < before_size; i++)
     {
@@ -154,5 +157,23 @@ void Model::GasContainer::clear_deleted()
     }
 
     molecules_.swap(cleared);
+}
+
+// ----------------------------------------------
+
+void GasContainer::remove_molecule(const MoleculeType type)
+{
+    size_t size = molecules_.size();
+
+    for (size_t i = 0; i < size; i++)
+    {
+        if (molecules_[i]->get_type() == type && !molecules_[i]->is_deleted)
+        {
+            molecules_[i]->is_deleted = true;
+            return;
+        }
+    }
+}
+
 }
 

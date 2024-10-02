@@ -41,20 +41,27 @@ int main()
         AddMolecules add_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         AddMolecules add_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
 
+        RemoveMolecules remove_sigma = {gas, Model::MoleculeType::SIGMA, 10};
+        RemoveMolecules remove_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
+
         PercentageDependence sigma_percentage_dependence   = {gas, Model::MoleculeType::SIGMA};
         PercentageDependence skibidi_percentage_dependence = {gas, Model::MoleculeType::SKIBIDI};
 
         Plot sigma_percentage = {200, 100, {900, 10}, &sigma_percentage_dependence, 1, 0};
         Plot skibidi_percentage = {200, 100, {900, 120}, &skibidi_percentage_dependence, 1, 0};
 
-        RectangleButton add_sigma_button = {130, 50, {10, 500}, &add_sigma};
-        RectangleButton add_skibidi_button = {130, 50, {200, 500}, &add_skibidi};
+        RectangleButton add_sigma_button = {130, 50, {50, 500}, &add_sigma};
+        RectangleButton add_skibidi_button = {130, 50, {240, 500}, &add_skibidi};
+        RectangleButton remove_sigma_button = {130, 50, {50, 570}, &remove_sigma};
+        RectangleButton remove_skibidi_button = {130, 50, {240, 570}, &remove_skibidi};
 
         mgr.add(&sigma_percentage);
         mgr.add(&skibidi_percentage);
 
         mgr.add(&add_sigma_button);
         mgr.add(&add_skibidi_button);
+        mgr.add(&remove_sigma_button);
+        mgr.add(&remove_skibidi_button);
 
         clock_t time = clock();
 

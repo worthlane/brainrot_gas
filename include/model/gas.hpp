@@ -24,6 +24,7 @@ class GasContainer : public Updatable, WindowDrawable
 
         void add_molecule(const Model::MoleculeType type, const Vector& position, const Vector& speed, const double mass);
         void add_molecule(const Model::MoleculeType type, const double mass);
+        void remove_molecule(const Model::MoleculeType type);
         void add_molecules(std::vector<Model::Molecule*>& new_molecules);
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;

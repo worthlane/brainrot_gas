@@ -49,4 +49,10 @@ void AddMolecules::operator()(Graphics::Event& event)
         gas_.add_molecule(type_, STD_MASS);
 }
 
+void RemoveMolecules::operator()(Graphics::Event& event)
+{
+    for (size_t i = 0; i < amount_; i++)
+        gas_.remove_molecule(type_);
+}
+
 

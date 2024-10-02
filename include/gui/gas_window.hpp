@@ -63,3 +63,17 @@ class AddMolecules : public GasAction
         Model::MoleculeType type_;
         size_t amount_;
 };
+
+class RemoveMolecules : public GasAction
+{
+    public:
+        RemoveMolecules(Model::GasContainer& gas, Model::MoleculeType type, const size_t amount) :
+                    GasAction(gas), type_(type), amount_(amount) {}
+        ~RemoveMolecules() {}
+
+        void operator()(Graphics::Event& event) override;
+
+    protected:
+        Model::MoleculeType type_;
+        size_t amount_;
+};

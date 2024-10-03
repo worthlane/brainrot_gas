@@ -18,6 +18,8 @@ class GasWindow : public Window, DesktopDrawable
         Model::GasContainer* gas_;
 };
 
+// =====================================
+
 class GasDependence : public Dependence
 {
     public:
@@ -28,17 +30,37 @@ class GasDependence : public Dependence
         Model::GasContainer& gas_;
 };
 
-class PercentageDependence : public GasDependence
+class AmountDependance : public GasDependence
 {
     public:
-        PercentageDependence(Model::GasContainer& gas, Model::MoleculeType type) : GasDependence(gas), type_(type) {}
-        ~PercentageDependence() {}
+        AmountDependance(Model::GasContainer& gas, Model::MoleculeType type) : GasDependence(gas), type_(type) {}
+        ~AmountDependance() {}
 
         double operator()() override;
 
     private:
         Model::MoleculeType type_;
 };
+
+class TemperatureDependance : public GasDependence
+{
+    public:
+        TemperatureDependance(Model::GasContainer& gas) : GasDependence(gas) {}
+        ~TemperatureDependance() {}
+
+        double operator()() override;
+};
+
+class PressureDependance : public GasDependence
+{
+    public:
+        PressureDependance(Model::GasContainer& gas) : GasDependence(gas) {}
+        ~PressureDependance() {}
+
+        double operator()() override;
+};
+
+// =================================
 
 class GasAction : public Action
 {
@@ -76,4 +98,17 @@ class RemoveMolecules : public GasAction
     protected:
         Model::MoleculeType type_;
         size_t amount_;
+};
+
+class MovePiston : public GasAction
+{
+    public:
+        MovePiston(Model::GasContainer& gas, const double delta) :
+                    GasAction(gas), delta_(delta) {}
+        ~MovePiston() {}
+
+        void operator()(Graphics::Event& event) override;
+
+    protected:
+        double delta_;
 };

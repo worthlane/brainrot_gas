@@ -14,4 +14,6 @@ class GasPhysics : public Manager<Model::Molecule>, Updatable
         Vector top_left;
         Vector down_right;
 
+        double pressure = 0;
+
 };

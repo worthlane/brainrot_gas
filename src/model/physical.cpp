@@ -9,26 +9,41 @@ static const Vector DOWN_NORMAL  = { 0, 1};
 
 static void collide(Model::Molecule* first, Model::Molecule* second);
 static void elastic_reflection(Model::Molecule* mol, const Vector& normal);
-static void wall_collision(Model::Molecule* mol, const Vector& top_left, const Vector& down_right);
+static double wall_collision(Model::Molecule* mol, const Vector& top_left, const Vector& down_right);
 
 // ===================================================================
 
 bool GasPhysics::update(Graphics::Desktop& window, Graphics::Event& event)
 {
+    if (last_update_ == 0)
+    {
+        last_update_ = get_time();
+        return false;
+    }
+
+    auto current = get_time();
+    auto time_passed = current - last_update_ + 1;
+
     size_t size = objects_.size();
+
+    double impulse_impact = 0;
 
     for (size_t i = 0; i < size; i++)
     {
         for (size_t j = i + 1; j < size; j++)
             collide(objects_[i], objects_[j]);
 
-        wall_collision(objects_[i], top_left, down_right);
+        impulse_impact += wall_collision(objects_[i], top_left, down_right);
     }
 
     for (size_t i = 0; i < size; i++)
     {
         objects_[i]->update(window, event);
     }
+
+    pressure = impulse_impact / time_passed ;
+
+    last_update_ = current;
 
     return true;
 }
@@ -84,7 +99,7 @@ static void elastic_reflection(Model::Molecule* mol, const Vector& normal)
 
 //-------------------------------------------------------------------
 
-static void wall_collision(Model::Molecule* molecule, const Vector& top_left, const Vector& down_right)
+static double wall_collision(Model::Molecule* molecule, const Vector& top_left, const Vector& down_right)
 {
     double upper_limit = top_left.get_y();
     double down_limit  = down_right.get_y();
@@ -94,6 +109,8 @@ static void wall_collision(Model::Molecule* molecule, const Vector& top_left, co
     double radius = molecule->get_radius();
     Vector pos    = molecule->get_position();
     Vector speed  = molecule->get_speed();
+
+    Vector start_impulse = molecule->get_impulse();
 
     if (pos.get_y() + radius > upper_limit)
     {
@@ -118,4 +135,8 @@ static void wall_collision(Model::Molecule* molecule, const Vector& top_left, co
         elastic_reflection(molecule, LEFT_NORMAL);
         molecule->set_position({left_limit + radius, pos.get_y()});
     }
+
+    Vector end_impulse = molecule->get_impulse();
+
+    return (end_impulse - start_impulse).get_length();
 }

@@ -44,6 +44,11 @@ bool Plot::update(Graphics::Desktop& window, Graphics::Event& event)
     double new_value = accumulating_value_ / (double) functor_launches_;
     accumulating_value_ = 0.0;
 
+    if (new_value > max_)
+        max_ += (new_value - max_) * 2;
+    if (new_value < min_)
+        min_ -= (min_ - new_value) * 2;
+
     size_t size = values_.size();
     for (size_t i = 0; i < size - 1; i++)
     {

@@ -1,3 +1,11 @@
 
 assets/.DS_Store
 assets/textures/.DS_Store
+include/gui/.DS_Store
+include/.DS_Store
+.vscode/settings.json
+src/.DS_Store
+src/gui/.DS_Store
+.DS_Store
+latex
+html

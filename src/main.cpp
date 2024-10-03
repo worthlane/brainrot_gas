@@ -41,27 +41,40 @@ int main()
         AddMolecules add_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         AddMolecules add_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
 
+        MovePiston move_piston_left = {gas, 0.5};
+        MovePiston move_piston_right = {gas, -0.5};
+
         RemoveMolecules remove_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         RemoveMolecules remove_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
 
-        PercentageDependence sigma_percentage_dependence   = {gas, Model::MoleculeType::SIGMA};
-        PercentageDependence skibidi_percentage_dependence = {gas, Model::MoleculeType::SKIBIDI};
+        AmountDependance sigma_percentage_dependence   = {gas, Model::MoleculeType::SIGMA};
+        AmountDependance skibidi_percentage_dependence = {gas, Model::MoleculeType::SKIBIDI};
+        TemperatureDependance temp = {gas};
+        PressureDependance press = {gas};
 
-        Plot sigma_percentage = {200, 100, {900, 10}, &sigma_percentage_dependence, 1, 0};
-        Plot skibidi_percentage = {200, 100, {900, 120}, &skibidi_percentage_dependence, 1, 0};
+        Plot sigma_percentage = {350, 80, {920, 10}, &sigma_percentage_dependence, 0, 0};
+        Plot skibidi_percentage = {350, 80, {920, 120}, &skibidi_percentage_dependence, 0, 0};
+        Plot temperature = {350, 80, {920, 230}, &temp, 0, 0};
+        Plot pressure = {350, 80, {920, 340}, &press, 0, 0};
 
         RectangleButton add_sigma_button = {130, 50, {50, 500}, &add_sigma};
         RectangleButton add_skibidi_button = {130, 50, {240, 500}, &add_skibidi};
         RectangleButton remove_sigma_button = {130, 50, {50, 570}, &remove_sigma};
         RectangleButton remove_skibidi_button = {130, 50, {240, 570}, &remove_skibidi};
+        RectangleButton piston_left = {130, 50, {700, 535}, &move_piston_left};
+        RectangleButton piston_right = {130, 50, {850, 535}, &move_piston_right};
 
         mgr.add(&sigma_percentage);
         mgr.add(&skibidi_percentage);
+        mgr.add(&temperature);
+        mgr.add(&pressure);
 
         mgr.add(&add_sigma_button);
         mgr.add(&add_skibidi_button);
         mgr.add(&remove_sigma_button);
         mgr.add(&remove_skibidi_button);
+        mgr.add(&piston_left);
+        mgr.add(&piston_right);
 
         clock_t time = clock();
 

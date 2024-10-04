@@ -172,14 +172,14 @@ void default_action(void* params)
 
 // ----------------------------------------------------------------------
 
-RectangleButton::RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action) :
+RectangleButton::RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action,
+                                 const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture) :
     AButton(length, width, upper_left, action)
 {
-    default_.loadFromFile(RED_SUBSCRIBE_BUTTON);
-    pressed_.loadFromFile(GRAY_SUBSCRIBE_BUTTON);
-
-    hovered_ = default_;
-    released_ = pressed_;
+    default_.loadFromFile(default_texture);
+    hovered_.loadFromFile(hovered_texture);
+    pressed_.loadFromFile(pressed_texture);
+    released_.loadFromFile(released_texture);
 }
 
 // ----------------------------------------------------------------------

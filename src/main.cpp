@@ -17,6 +17,29 @@ static const size_t LENGTH = 1280;
 static const size_t WIDTH  = 720;
 static const double SCALE  = 0.05;
 
+static const char* RED_BUTTON_DEFAULT   = "assets/textures/red_default.png";
+static const char* RED_BUTTON_HOVERED   = "assets/textures/red_hovered.png";
+static const char* RED_BUTTON_PRESSED   = "assets/textures/red_pressed.png";
+
+static const char* BLUE_BUTTON_DEFAULT   = "assets/textures/blue_default.png";
+static const char* BLUE_BUTTON_HOVERED   = "assets/textures/blue_hovered.png";
+static const char* BLUE_BUTTON_PRESSED   = "assets/textures/blue_pressed.png";
+
+static const char* LEFT_ARROW_DEFAULT   = "assets/textures/leftarrow_default.png";
+static const char* LEFT_ARROW_HOVERED   = "assets/textures/leftarrow_hovered.png";
+static const char* LEFT_ARROW_PRESSED   = "assets/textures/leftarrow_pressed.png";
+
+static const char* RIGHT_ARROW_DEFAULT   = "assets/textures/rightarrow_default.png";
+static const char* RIGHT_ARROW_HOVERED   = "assets/textures/rightarrow_hovered.png";
+static const char* RIGHT_ARROW_PRESSED   = "assets/textures/rightarrow_pressed.png";
+
+static const size_t BUTTON_LENGTH = 179;
+static const size_t BUTTON_WIDTH  = 50;
+
+static const size_t ARROW_LENGTH  = 150;
+static const size_t ARROW_WIDTH   = 113;
+
+
 int main()
 {
     try
@@ -57,12 +80,18 @@ int main()
         Plot temperature = {350, 80, {920, 230}, &temp, 0, 0};
         Plot pressure = {350, 80, {920, 340}, &press, 0, 0};
 
-        RectangleButton add_sigma_button = {130, 50, {50, 500}, &add_sigma};
-        RectangleButton add_skibidi_button = {130, 50, {240, 500}, &add_skibidi};
-        RectangleButton remove_sigma_button = {130, 50, {50, 570}, &remove_sigma};
-        RectangleButton remove_skibidi_button = {130, 50, {240, 570}, &remove_skibidi};
-        RectangleButton piston_left = {130, 50, {700, 535}, &move_piston_left};
-        RectangleButton piston_right = {130, 50, {850, 535}, &move_piston_right};
+        RectangleButton add_sigma_button = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 500}, &add_sigma,
+                                            BLUE_BUTTON_DEFAULT, BLUE_BUTTON_HOVERED, BLUE_BUTTON_PRESSED, BLUE_BUTTON_PRESSED};
+        RectangleButton add_skibidi_button = {BUTTON_LENGTH, BUTTON_WIDTH, {350, 500}, &add_skibidi,
+                                              RED_BUTTON_DEFAULT, RED_BUTTON_HOVERED, RED_BUTTON_PRESSED, RED_BUTTON_PRESSED};
+        RectangleButton remove_sigma_button = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 600}, &remove_sigma,
+                                               BLUE_BUTTON_DEFAULT, BLUE_BUTTON_HOVERED, BLUE_BUTTON_PRESSED, BLUE_BUTTON_PRESSED};
+        RectangleButton remove_skibidi_button = {BUTTON_LENGTH, BUTTON_WIDTH, {350, 600}, &remove_skibidi,
+                                                 RED_BUTTON_DEFAULT, RED_BUTTON_HOVERED, RED_BUTTON_PRESSED, RED_BUTTON_PRESSED};
+        RectangleButton piston_left = {ARROW_LENGTH, ARROW_WIDTH, {700, 500}, &move_piston_left,
+                                       LEFT_ARROW_DEFAULT, LEFT_ARROW_HOVERED, LEFT_ARROW_PRESSED, LEFT_ARROW_DEFAULT};
+        RectangleButton piston_right = {ARROW_LENGTH, ARROW_WIDTH, {900, 500}, &move_piston_right,
+                                        RIGHT_ARROW_DEFAULT, RIGHT_ARROW_HOVERED, RIGHT_ARROW_PRESSED, RIGHT_ARROW_DEFAULT};
 
         mgr.add(&sigma_percentage);
         mgr.add(&skibidi_percentage);

@@ -69,7 +69,8 @@ void default_action(void* params);
 class RectangleButton : public AButton
 {
     public:
-        RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
+        RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action,
+                        const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture);
         ~RectangleButton();
 
         bool on_release(Graphics::Desktop& window, Graphics::Event& event)   override;

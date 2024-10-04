@@ -64,8 +64,8 @@ int main()
         AddMolecules add_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         AddMolecules add_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
 
-        MovePiston move_piston_left = {gas, 0.5};
-        MovePiston move_piston_right = {gas, -0.5};
+        MovePiston move_piston_left = {gas, 0.01};
+        MovePiston move_piston_right = {gas, -0.01};
 
         RemoveMolecules remove_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         RemoveMolecules remove_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
@@ -80,18 +80,18 @@ int main()
         Plot temperature = {350, 80, {920, 230}, &temp, 0, 0};
         Plot pressure = {350, 80, {920, 340}, &press, 0, 0};
 
-        RectangleButton add_sigma_button = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 500}, &add_sigma,
-                                            BLUE_BUTTON_DEFAULT, BLUE_BUTTON_HOVERED, BLUE_BUTTON_PRESSED, BLUE_BUTTON_PRESSED};
-        RectangleButton add_skibidi_button = {BUTTON_LENGTH, BUTTON_WIDTH, {350, 500}, &add_skibidi,
-                                              RED_BUTTON_DEFAULT, RED_BUTTON_HOVERED, RED_BUTTON_PRESSED, RED_BUTTON_PRESSED};
-        RectangleButton remove_sigma_button = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 600}, &remove_sigma,
-                                               BLUE_BUTTON_DEFAULT, BLUE_BUTTON_HOVERED, BLUE_BUTTON_PRESSED, BLUE_BUTTON_PRESSED};
-        RectangleButton remove_skibidi_button = {BUTTON_LENGTH, BUTTON_WIDTH, {350, 600}, &remove_skibidi,
-                                                 RED_BUTTON_DEFAULT, RED_BUTTON_HOVERED, RED_BUTTON_PRESSED, RED_BUTTON_PRESSED};
-        RectangleButton piston_left = {ARROW_LENGTH, ARROW_WIDTH, {700, 500}, &move_piston_left,
-                                       LEFT_ARROW_DEFAULT, LEFT_ARROW_HOVERED, LEFT_ARROW_PRESSED, LEFT_ARROW_DEFAULT};
-        RectangleButton piston_right = {ARROW_LENGTH, ARROW_WIDTH, {900, 500}, &move_piston_right,
-                                        RIGHT_ARROW_DEFAULT, RIGHT_ARROW_HOVERED, RIGHT_ARROW_PRESSED, RIGHT_ARROW_DEFAULT};
+        RectangleButtonRelease add_sigma_button = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 500}, &add_sigma,
+                                                   BLUE_BUTTON_DEFAULT, BLUE_BUTTON_HOVERED, BLUE_BUTTON_PRESSED, BLUE_BUTTON_PRESSED};
+        RectangleButtonRelease add_skibidi_button = {BUTTON_LENGTH, BUTTON_WIDTH, {350, 500}, &add_skibidi,
+                                                     RED_BUTTON_DEFAULT, RED_BUTTON_HOVERED, RED_BUTTON_PRESSED, RED_BUTTON_PRESSED};
+        RectangleButtonRelease remove_sigma_button = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 600}, &remove_sigma,
+                                                      BLUE_BUTTON_DEFAULT, BLUE_BUTTON_HOVERED, BLUE_BUTTON_PRESSED, BLUE_BUTTON_PRESSED};
+        RectangleButtonRelease remove_skibidi_button = {BUTTON_LENGTH, BUTTON_WIDTH, {350, 600}, &remove_skibidi,
+                                                        RED_BUTTON_DEFAULT, RED_BUTTON_HOVERED, RED_BUTTON_PRESSED, RED_BUTTON_PRESSED};
+        RectangleButtonHold piston_left = {ARROW_LENGTH, ARROW_WIDTH, {700, 500}, &move_piston_left,
+                                           LEFT_ARROW_DEFAULT, LEFT_ARROW_HOVERED, LEFT_ARROW_PRESSED, LEFT_ARROW_DEFAULT};
+        RectangleButtonHold piston_right = {ARROW_LENGTH, ARROW_WIDTH, {900, 500}, &move_piston_right,
+                                            RIGHT_ARROW_DEFAULT, RIGHT_ARROW_HOVERED, RIGHT_ARROW_PRESSED, RIGHT_ARROW_DEFAULT};
 
         mgr.add(&sigma_percentage);
         mgr.add(&skibidi_percentage);

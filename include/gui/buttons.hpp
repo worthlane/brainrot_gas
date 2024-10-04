@@ -72,6 +72,26 @@ class RectangleButton : public AButton
         RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action,
                         const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture);
         ~RectangleButton();
+};
+
+class RectangleButtonRelease : public RectangleButton
+{
+    public:
+        RectangleButtonRelease(const size_t length, const size_t width, const Dot& upper_left, Action* action,
+                               const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture) :
+                               RectangleButton(length, width, upper_left, action, default_texture, hovered_texture, pressed_texture, released_texture) {}
+        ~RectangleButtonRelease() {}
 
         bool on_release(Graphics::Desktop& window, Graphics::Event& event)   override;
+};
+
+class RectangleButtonHold : public RectangleButton
+{
+    public:
+        RectangleButtonHold(const size_t length, const size_t width, const Dot& upper_left, Action* action,
+                               const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture) :
+                               RectangleButton(length, width, upper_left, action, default_texture, hovered_texture, pressed_texture, released_texture) {}
+        ~RectangleButtonHold() {}
+
+        bool on_click(Graphics::Desktop& window, Graphics::Event& event)   override;
 };

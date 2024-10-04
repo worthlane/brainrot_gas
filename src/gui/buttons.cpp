@@ -190,7 +190,16 @@ RectangleButton::~RectangleButton()
 
 // ----------------------------------------------------------------------
 
-bool RectangleButton::on_release(Graphics::Desktop& window, Graphics::Event& event)
+bool RectangleButtonRelease::on_release(Graphics::Desktop& window, Graphics::Event& event)
+{
+    (*action_)(event);
+
+    return true;
+}
+
+// ----------------------------------------------------------------------
+
+bool RectangleButtonHold::on_click(Graphics::Desktop& window, Graphics::Event& event)
 {
     (*action_)(event);
 

@@ -18,10 +18,10 @@ enum class ButtonCondition
 class Action
 {
     public:
-        virtual void operator()(Graphics::Event& event) = 0;
+        virtual void operator()(Graphics::Event& event, const u_int64_t time_since_update = 0) = 0;
 };
 
-class AButton : public Window, Updatable
+class AButton : public Window
 {
     public:
         AButton(const size_t length, const size_t width, const Dot& top_left,

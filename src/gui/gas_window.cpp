@@ -71,7 +71,7 @@ double TemperatureDependance::operator()()
 
     static const double CAST_TEMP_COEF = 0.0001;
 
-    double temp = ((double) kinetic_total / ((double) overall * CAST_TEMP_COEF));  // / overall 
+    double temp = ((double) kinetic_total / ((double) overall * CAST_TEMP_COEF));  // / overall
 
     return temp;
 }
@@ -81,23 +81,27 @@ double PressureDependance::operator()()
     return gas_.get_pressure();
 }
 
-void AddMolecules::operator()(Graphics::Event& event)
+void AddMolecules::operator()(Graphics::Event& event, const u_int64_t time_since_update)
 {
     for (size_t i = 0; i < amount_; i++)
         gas_.add_molecule(type_, STD_MASS);
 }
 
-void RemoveMolecules::operator()(Graphics::Event& event)
+void RemoveMolecules::operator()(Graphics::Event& event, const u_int64_t time_since_update)
 {
     for (size_t i = 0; i < amount_; i++)
         gas_.remove_molecule(type_);
 }
 
-void MovePiston::operator()(Graphics::Event& event)
+void MovePiston::operator()(Graphics::Event& event, const u_int64_t time_since_update)
 {
+    static const double CAST_TIME_COEF = 1e-4;
+
     Vector last_down_right = gas_.get_down_right();
 
-    Vector new_down_right = {last_down_right.get_x() - delta_, last_down_right.get_y()};
+    double delta = delta_ * time_since_update * CAST_TIME_COEF;
+
+    Vector new_down_right = {last_down_right.get_x() - delta, last_down_right.get_y()};
 
     gas_.set_down_right(new_down_right);
 }

@@ -56,6 +56,15 @@ bool AButton::is_hovered(const Graphics::Desktop& window)
 
 bool AButton::update(Graphics::Desktop& window, Graphics::Event& event)
 {
+    if (last_update_ == 0)
+    {
+        last_update_ = get_time();
+        return false;
+    }
+
+    auto current = get_time();
+    auto time_passed = current - last_update_;
+
     switch (cond_)
     {
         case ButtonCondition::DEFAULT:
@@ -79,6 +88,8 @@ bool AButton::update(Graphics::Desktop& window, Graphics::Event& event)
             cond_ = ButtonCondition::DEFAULT;
             return false;
     }
+
+    last_update_ = current;
 }
 
 // ----------------------------------------------------------------------
@@ -192,7 +203,9 @@ RectangleButton::~RectangleButton()
 
 bool RectangleButtonRelease::on_release(Graphics::Desktop& window, Graphics::Event& event)
 {
-    (*action_)(event);
+    auto current = get_time();
+
+    (*action_)(event, current - last_update_);
 
     return true;
 }
@@ -201,7 +214,9 @@ bool RectangleButtonRelease::on_release(Graphics::Desktop& window, Graphics::Eve
 
 bool RectangleButtonHold::on_click(Graphics::Desktop& window, Graphics::Event& event)
 {
-    (*action_)(event);
+    auto current = get_time();
+
+    (*action_)(event, current - last_update_);
 
     return true;
 }

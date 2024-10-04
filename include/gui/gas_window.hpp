@@ -79,7 +79,7 @@ class AddMolecules : public GasAction
                     GasAction(gas), type_(type), amount_(amount) {}
         ~AddMolecules() {}
 
-        void operator()(Graphics::Event& event) override;
+        void operator()(Graphics::Event& event, const u_int64_t time_since_update = 0) override;
 
     protected:
         Model::MoleculeType type_;
@@ -93,7 +93,7 @@ class RemoveMolecules : public GasAction
                     GasAction(gas), type_(type), amount_(amount) {}
         ~RemoveMolecules() {}
 
-        void operator()(Graphics::Event& event) override;
+        void operator()(Graphics::Event& event, const u_int64_t time_since_update = 0) override;
 
     protected:
         Model::MoleculeType type_;
@@ -107,7 +107,7 @@ class MovePiston : public GasAction
                     GasAction(gas), delta_(delta) {}
         ~MovePiston() {}
 
-        void operator()(Graphics::Event& event) override;
+        void operator()(Graphics::Event& event, const u_int64_t time_since_update = 0) override;
 
     protected:
         double delta_;

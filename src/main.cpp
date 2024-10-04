@@ -72,10 +72,10 @@ int main()
         RemoveMolecules remove_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         RemoveMolecules remove_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
 
-        AmountDependance sigma_percentage_dependence   = {gas, Model::MoleculeType::SIGMA};
-        AmountDependance skibidi_percentage_dependence = {gas, Model::MoleculeType::SKIBIDI};
-        TemperatureDependance temp = {gas};
-        PressureDependance press = {gas};
+        AmountDependence sigma_percentage_dependence   = {gas, Model::MoleculeType::SIGMA};
+        AmountDependence skibidi_percentage_dependence = {gas, Model::MoleculeType::SKIBIDI};
+        TemperatureDependence temp = {gas};
+        PressureDependence press = {gas};
 
         Plot sigma_percentage = {350, 80, {920, 10}, &sigma_percentage_dependence, 0, 0};
         Plot skibidi_percentage = {350, 80, {920, 120}, &skibidi_percentage_dependence, 0, 0};

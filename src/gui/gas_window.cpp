@@ -20,7 +20,7 @@ void GasWindow::draw(Graphics::Desktop& desktop) const
     gas_->draw(desktop, *this);
 }
 
-double AmountDependance::operator()()
+double AmountDependence::operator()()
 {
     std::vector<Model::Molecule*> molecules = gas_.get_molecules();
 
@@ -45,7 +45,7 @@ double AmountDependance::operator()()
     return (double) typed;
 }
 
-double TemperatureDependance::operator()()
+double TemperatureDependence::operator()()
 {
     std::vector<Model::Molecule*> molecules = gas_.get_molecules();
 
@@ -76,7 +76,7 @@ double TemperatureDependance::operator()()
     return temp;
 }
 
-double PressureDependance::operator()()
+double PressureDependence::operator()()
 {
     return gas_.get_pressure();
 }
@@ -98,7 +98,7 @@ void MovePiston::operator()(Graphics::Event& event, const u_int64_t time_since_u
     static const double CAST_TIME_COEF = 1e-2;
 
     Vector last_down_right = gas_.get_down_right();
-    
+
     double delta = delta_ * time_since_update * CAST_TIME_COEF;
 
     Vector new_down_right = {last_down_right.get_x() - delta, last_down_right.get_y()};

@@ -30,11 +30,11 @@ class GasDependence : public Dependence
         Model::GasContainer& gas_;
 };
 
-class AmountDependance : public GasDependence
+class AmountDependence : public GasDependence
 {
     public:
-        AmountDependance(Model::GasContainer& gas, Model::MoleculeType type) : GasDependence(gas), type_(type) {}
-        ~AmountDependance() {}
+        AmountDependence(Model::GasContainer& gas, Model::MoleculeType type) : GasDependence(gas), type_(type) {}
+        ~AmountDependence() {}
 
         double operator()() override;
 
@@ -42,20 +42,20 @@ class AmountDependance : public GasDependence
         Model::MoleculeType type_;
 };
 
-class TemperatureDependance : public GasDependence
+class TemperatureDependence : public GasDependence
 {
     public:
-        TemperatureDependance(Model::GasContainer& gas) : GasDependence(gas) {}
-        ~TemperatureDependance() {}
+        TemperatureDependence(Model::GasContainer& gas) : GasDependence(gas) {}
+        ~TemperatureDependence() {}
 
         double operator()() override;
 };
 
-class PressureDependance : public GasDependence
+class PressureDependence : public GasDependence
 {
     public:
-        PressureDependance(Model::GasContainer& gas) : GasDependence(gas) {}
-        ~PressureDependance() {}
+        PressureDependence(Model::GasContainer& gas) : GasDependence(gas) {}
+        ~PressureDependence() {}
 
         double operator()() override;
 };

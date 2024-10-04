@@ -65,31 +65,38 @@ bool AButton::update(Graphics::Desktop& window, Graphics::Event& event)
     auto current = get_time();
     auto time_passed = current - last_update_;
 
+    bool result = false;
+
     switch (cond_)
     {
         case ButtonCondition::DEFAULT:
             this->handle_default_(window);
-            return this->on_default(window, event);
+            result = this->on_default(window, event);
+            break;
 
         case ButtonCondition::HOVERED:
             this->handle_hover_(window);
-            return this->on_hover(window, event);
+            result = this->on_hover(window, event);
+            break;
 
         case ButtonCondition::PRESSED:
             this->handle_click_(window);
-            return this->on_click(window, event);
+            result = this->on_click(window, event);
+            break;
 
         case ButtonCondition::RELEASED:
             this->handle_release_(window);
-            return this->on_release(window, event);
+            result = this->on_release(window, event);
+            break;
 
         default:
 
             cond_ = ButtonCondition::DEFAULT;
-            return false;
     }
 
     last_update_ = current;
+
+    return result;
 }
 
 // ----------------------------------------------------------------------

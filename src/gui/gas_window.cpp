@@ -95,10 +95,10 @@ void RemoveMolecules::operator()(Graphics::Event& event, const u_int64_t time_si
 
 void MovePiston::operator()(Graphics::Event& event, const u_int64_t time_since_update)
 {
-    static const double CAST_TIME_COEF = 1e-4;
+    static const double CAST_TIME_COEF = 1e-2;
 
     Vector last_down_right = gas_.get_down_right();
-
+    
     double delta = delta_ * time_since_update * CAST_TIME_COEF;
 
     Vector new_down_right = {last_down_right.get_x() - delta, last_down_right.get_y()};

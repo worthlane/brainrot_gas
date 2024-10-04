@@ -27,6 +27,7 @@ class Desktop
         void draw(const Sprite& sprite);
         void draw_circle(const Vector& pos, const double radius, sf::Color color);
         void draw_rectangle(const Vector& pos, const double length, const double width, sf::Color color);
+        void draw_image(const Vector& pos, const char* path);
         //void draw_line(const Vector& start, const Vector& end, sf::Color color);
 
         sf::RenderWindow window_;

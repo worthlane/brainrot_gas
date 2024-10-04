@@ -33,6 +33,8 @@ static const char* RIGHT_ARROW_DEFAULT   = "assets/textures/rightarrow_default.p
 static const char* RIGHT_ARROW_HOVERED   = "assets/textures/rightarrow_hovered.png";
 static const char* RIGHT_ARROW_PRESSED   = "assets/textures/rightarrow_pressed.png";
 
+static const char* BACKGROUND            = "assets/textures/background.png";
+
 static const size_t BUTTON_LENGTH = 179;
 static const size_t BUTTON_WIDTH  = 50;
 
@@ -64,8 +66,8 @@ int main()
         AddMolecules add_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         AddMolecules add_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
 
-        MovePiston move_piston_left = {gas, 0.01};
-        MovePiston move_piston_right = {gas, -0.01};
+        MovePiston move_piston_left = {gas, 1};
+        MovePiston move_piston_right = {gas, -1};
 
         RemoveMolecules remove_sigma = {gas, Model::MoleculeType::SIGMA, 10};
         RemoveMolecules remove_skibidi = {gas, Model::MoleculeType::SKIBIDI, 10};
@@ -114,6 +116,8 @@ int main()
             Graphics::Event event;
 
             desktop.clear();
+
+            desktop.draw_image({0, 0}, BACKGROUND);
 
             mgr.update(desktop, event);
             mgr.draw(desktop);

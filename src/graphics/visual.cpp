@@ -120,3 +120,14 @@ u_int64_t get_time()
     return std::chrono::duration_cast<std::chrono::milliseconds>(current.time_since_epoch()).count();
 }
 
+// ----------------------------------------------------------------------
+
+void Graphics::Desktop::draw_image(const Vector& pos, const char* path)
+{
+    sf::Texture texture;
+    texture.loadFromFile(path);
+    sf::Sprite sprite(texture);
+    sprite.setPosition(pos.get_x(), pos.get_y());
+    window_.draw(sprite);
+}
+

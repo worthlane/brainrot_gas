@@ -16,6 +16,14 @@ static void draw_container(const GasContainer& gas, Graphics::Desktop& desktop, 
 GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
                                 physics_(top_left, down_right)
 {
+    size_t size = molecules_.size();
+
+    for (size_t i = 0; i < size; i++)
+    {
+        delete molecules_[i];
+    }
+
+    molecules_.clear();
 }
 
 // ----------------------------------------------
@@ -143,6 +151,8 @@ void GasContainer::clear_deleted()
     {
         if (!molecules_[i]->is_deleted)
             cleared.push_back(molecules_[i]);
+        else
+            delete molecules_[i];
     }
 
     physics_.clear();

@@ -10,16 +10,6 @@ Model::Molecule::Molecule(const Vector& position, const Vector& speed, const dou
 {
 }
 
-Model::Molecule::~Molecule()
-{
-    mass_   = NAN;
-    radius_ = NAN;
-
-    position_ = NAN_VECTOR;
-    speed_    = NAN_VECTOR;
-    impulse_  = NAN_VECTOR;
-}
-
 void Model::Molecule::set_impulse(const Vector& impulse)
 {
     impulse_ = impulse;

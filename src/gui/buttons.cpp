@@ -24,14 +24,6 @@ AButton::AButton(const size_t length, const size_t width, const Dot& top_left, A
 
 // ----------------------------------------------------------------------
 
-AButton::~AButton()
-{
-    length_ = NAN;
-    width_  = NAN;
-}
-
-// ----------------------------------------------------------------------
-
 bool AButton::is_hovered(const Graphics::Desktop& window)
 {
     Dot mouse = get_mouse_position(window);
@@ -198,12 +190,6 @@ RectangleButton::RectangleButton(const size_t length, const size_t width, const 
     hovered_.loadFromFile(hovered_texture);
     pressed_.loadFromFile(pressed_texture);
     released_.loadFromFile(released_texture);
-}
-
-// ----------------------------------------------------------------------
-
-RectangleButton::~RectangleButton()
-{
 }
 
 // ----------------------------------------------------------------------

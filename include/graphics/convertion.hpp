@@ -8,9 +8,6 @@ namespace Graphics
 class Sprite
 {
     public:
-        Sprite();
-        ~Sprite();
-
         void set_texture(const sf::Texture &texture, bool reset_rect=false);
         void set_position (float x, float y);
         void set_color(sf::Color color);
@@ -24,9 +21,6 @@ class Sprite
 class Event
 {
     public:
-        Event();
-        ~Event();
-
         sf::Event& get_event();
         sf::Event::EventType& type();
 

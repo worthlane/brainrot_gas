@@ -27,7 +27,6 @@ class AButton : public Window
         AButton(const size_t length, const size_t width, const Dot& top_left,
                 const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released, Action* action);
         AButton(const size_t length, const size_t width, const Dot& top_left, Action* action);
-        ~AButton();
 
         virtual bool on_default(Graphics::Desktop& window, Graphics::Event& event);
         virtual bool on_hover(Graphics::Desktop& window, Graphics::Event& event);
@@ -71,7 +70,6 @@ class RectangleButton : public AButton
     public:
         RectangleButton(const size_t length, const size_t width, const Dot& upper_left, Action* action,
                         const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture);
-        ~RectangleButton();
 };
 
 class RectangleButtonRelease : public RectangleButton
@@ -80,7 +78,6 @@ class RectangleButtonRelease : public RectangleButton
         RectangleButtonRelease(const size_t length, const size_t width, const Dot& upper_left, Action* action,
                                const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture) :
                                RectangleButton(length, width, upper_left, action, default_texture, hovered_texture, pressed_texture, released_texture) {}
-        ~RectangleButtonRelease() {}
 
         bool on_release(Graphics::Desktop& window, Graphics::Event& event)   override;
 };
@@ -91,7 +88,6 @@ class RectangleButtonHold : public RectangleButton
         RectangleButtonHold(const size_t length, const size_t width, const Dot& upper_left, Action* action,
                                const char* default_texture, const char* hovered_texture, const char* pressed_texture, const char* released_texture) :
                                RectangleButton(length, width, upper_left, action, default_texture, hovered_texture, pressed_texture, released_texture) {}
-        ~RectangleButtonHold() {}
 
         bool on_click(Graphics::Desktop& window, Graphics::Event& event)   override;
 };

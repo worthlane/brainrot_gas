@@ -13,7 +13,6 @@ class GasContainer : public Updatable, WindowDrawable
 {
     public:
         GasContainer(const Vector& top_left, const Vector& down_right);
-        ~GasContainer();
 
         Vector get_top_left()   const { return physics_.top_left; }
         Vector get_down_right() const { return physics_.down_right; }

@@ -18,22 +18,6 @@ double rand_double(const double min, const double max)
     return min + static_cast<double>(rand()) / RAND_MAX * (max - min);
 }
 
-// --------------------------------------------------------------------
-
-Vector::Vector(const double x, const double y)
-{
-    x_ = x;
-    y_ = y;
-}
-
-// ----------------------------------------------------------------------
-
-Vector::~Vector()
-{
-    x_ = NAN;
-    y_ = NAN;
-}
-
 // ----------------------------------------------------------------------
 
 Vector Vector::operator=(const Vector& second)

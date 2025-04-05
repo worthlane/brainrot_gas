@@ -10,7 +10,6 @@ namespace Mystd
             Vector(const size_t capacity, const T value = T());
 
 
-            ~Vector();
         private:
             size_t size_     = 0;
             size_t capacity_ = 0;

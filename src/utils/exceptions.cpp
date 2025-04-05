@@ -2,14 +2,15 @@
 
 namespace Mystd
 {
-    Exception::Exception(const char* reason, Exception* before) noexcept(true) : reason_(reason), before_(before), code_(ErrorCode::UNKNOWN) {}
+    Exception::Exception(const char* reason, Exception* before) noexcept(true) :
+        reason_(reason), before_(before), code_(ErrorCode::UNKNOWN) {}
 
-    Exception::Exception(ErrorCode code, Exception* before) noexcept(true) : code_(code), before_(before), reason_("") {}
+    Exception::Exception(ErrorCode code, Exception* before) noexcept(true) :
+        code_(code), before_(before), reason_("") {}
 
     Exception::~Exception() noexcept(true)
     {
-        if (before_)
-            delete before_;
+        delete before_;
     }
 
     const char* Exception::what() const noexcept(true)

@@ -8,7 +8,6 @@ class Window : public DesktopDrawable, public Updatable
 {
     public:
         Window(const size_t length, const size_t width, const Dot& top_left_);
-        ~Window();
 
         Vector  get_top_left()   const { return top_left_; }
         size_t  get_width()      const { return width_; }

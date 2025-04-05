@@ -5,8 +5,7 @@
 class Vector
 {
     public:
-        Vector(const double x, const double y);
-        ~Vector();
+        Vector(const double x, const double y) : x_(x), y_(y) {}
 
         double get_x() const { return x_; }
         double get_y() const { return y_; }

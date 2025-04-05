@@ -8,11 +8,6 @@ GasWindow::GasWindow(const size_t length, const size_t width, const Dot& top_lef
     gas_ = gas;
 }
 
-GasWindow::~GasWindow()
-{
-    gas_ = nullptr;
-}
-
 void GasWindow::draw(Graphics::Desktop& desktop) const
 {
     desktop.draw_rectangle(top_left_, length_, width_, sf::Color(200, 200, 200));

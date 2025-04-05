@@ -19,16 +19,6 @@ CoordSystem::CoordSystem(const size_t length, const size_t width, const double s
 
 // ----------------------------------------------------------------------
 
-CoordSystem::~CoordSystem()
-{
-    scale_ = NAN;
-
-    width_  = NAN;
-    length_ = NAN;
-}
-
-// ----------------------------------------------------------------------
-
 size_t CoordSystem::get_width() const
 {
     return width_;

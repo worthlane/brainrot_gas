@@ -28,12 +28,6 @@ GasContainer::GasContainer(const Vector& top_left, const Vector& down_right) :
 
 // ----------------------------------------------
 
-GasContainer::~GasContainer()
-{
-}
-
-// ----------------------------------------------
-
 void GasContainer::draw(Graphics::Desktop& desktop, const Window& window) const
 {
     draw_container(*this, desktop, window);

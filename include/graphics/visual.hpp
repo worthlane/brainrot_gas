@@ -14,7 +14,14 @@ class Desktop
 {
     public:
         Desktop(const size_t length, const size_t width, const char* name);
+
         ~Desktop();
+
+        Desktop(const Desktop& d) = delete;
+        Desktop(Desktop&&) = delete;
+
+        Desktop& operator=(const Desktop&) = delete;
+        Desktop& operator=(Desktop&&) = delete;
 
         bool is_open();
         void clear();

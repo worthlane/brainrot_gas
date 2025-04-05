@@ -2,19 +2,6 @@
 
 // ----------------------------------------------------------------------
 
-Graphics::Sprite::Sprite()
-{
-    sf::Sprite sprite_;
-}
-
-// ----------------------------------------------------------------------
-
-Graphics::Sprite::~Sprite()
-{
-}
-
-// ----------------------------------------------------------------------
-
 void Graphics::Sprite::set_texture(const sf::Texture &texture, bool reset_rect)
 {
     sprite_.setTexture(texture, reset_rect);
@@ -39,19 +26,6 @@ sf::Sprite Graphics::Sprite::get_sprite() const
 void Graphics::Sprite::set_color(sf::Color color)
 {
     sprite_.setColor(color);
-}
-
-// ----------------------------------------------------------------------
-
-Graphics::Event::Event()
-{
-    sf::Event event_;
-}
-
-// ----------------------------------------------------------------------
-
-Graphics::Event::~Event()
-{
 }
 
 // ----------------------------------------------------------------------

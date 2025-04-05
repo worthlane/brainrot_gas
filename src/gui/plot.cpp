@@ -18,12 +18,6 @@ Plot::Plot(const size_t length, const size_t width, const Dot& top_left, Depende
     }
 }
 
-Plot::~Plot()
-{
-    min_ = NAN;
-    max_ = NAN;
-}
-
 bool Plot::update(Graphics::Desktop& window, Graphics::Event& event)
 {
     if (last_update_ == 0)

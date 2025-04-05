@@ -7,7 +7,3 @@ Window::Window(const size_t length, const size_t width, const Dot& top_left) :
 {}
 
 
-Window::~Window()
-{}
-
-

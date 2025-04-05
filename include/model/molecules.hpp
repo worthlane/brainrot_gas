@@ -23,7 +23,7 @@ class Molecule : public WindowDrawable, Updatable
 {
     public:
         Molecule(const Vector& position, const Vector& speed, const double mass);
-        virtual ~Molecule();
+        virtual ~Molecule() = default;
 
         Vector get_position() const { return position_; }
         Vector get_impulse()  const { return impulse_; }
@@ -57,7 +57,6 @@ class SigmaMolecule : public Molecule
     public:
         SigmaMolecule(const Vector& position, const Vector& speed, const double mass) :
             Molecule(position, speed, mass) { }
-        ~SigmaMolecule() { }
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
 
@@ -69,7 +68,6 @@ class SkibidiMolecule : public Molecule
     public:
         SkibidiMolecule(const Vector& position, const Vector& speed, const double mass) :
             Molecule(position, speed, mass) { }
-        ~SkibidiMolecule() {}
 
         void draw(Graphics::Desktop& desktop, const Window& window) const override;
 

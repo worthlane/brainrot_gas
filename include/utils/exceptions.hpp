@@ -22,6 +22,12 @@ namespace Mystd
 
             ~Exception() noexcept(true);
 
+            Exception(const Exception&) = delete;
+            Exception(Exception&&) = delete;
+
+            Exception& operator=(const Exception&) = delete;
+            Exception& operator=(Exception&&) = delete;
+
             const char* what() const noexcept(true);
 
             Exception* get_prev() const noexcept(true);
@@ -31,7 +37,5 @@ namespace Mystd
 
             const char* reason_;
             ErrorCode   code_;
-
-
     };
 }

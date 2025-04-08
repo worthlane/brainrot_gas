@@ -15,7 +15,7 @@ class Window : public DesktopDrawable, public Updatable
 
         CoordSystem get_system() const { return system_; }
 
-        virtual bool update(Graphics::Desktop& window, Graphics::Event& event) { return false; }
+        bool update(Graphics::Desktop& window, Graphics::Event& event) override { return false; }
 
     protected:
         size_t width_, length_;

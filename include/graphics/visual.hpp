@@ -15,13 +15,15 @@ class Desktop
     public:
         Desktop(const size_t length, const size_t width, const char* name);
 
-        ~Desktop();
-
-        Desktop(const Desktop& d) = delete;
+        // Non-movable
         Desktop(Desktop&&) = delete;
-
-        Desktop& operator=(const Desktop&) = delete;
         Desktop& operator=(Desktop&&) = delete;
+
+        // Non-copyable
+        Desktop(const Desktop&) = delete;
+        Desktop& operator=(const Desktop&) = delete;
+
+        ~Desktop();
 
         bool is_open();
         void clear();
